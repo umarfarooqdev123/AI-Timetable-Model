@@ -50,14 +50,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add click events to login options
     document.getElementById('student-login').addEventListener('click', function() {
-        alert('Student login selected. In a real application, this would redirect to the student login page.');
+        window.location.href = "/student_info"
     });
     
     document.getElementById('teacher-login').addEventListener('click', function() {
-        alert('Teacher login selected. In a real application, this would redirect to the teacher login page.');
+        window.location.href = "/login"
     });
     
     document.getElementById('admin-login').addEventListener('click', function() {
-        alert('Administrator login selected. In a real application, this would redirect to the admin login page.');
+        window.location.href = "/login"
     });
 });
