@@ -1,0 +1,151 @@
+{% extends "layout.html" %} {% block head %}
+
+<!-- Font Awesome -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+
+<!-- Css File Link -->
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+
+<!-- Javascript File Link -->
+<script src="{{ url_for('static', filename='index.js') }}" defer></script>
+
+{% endblock %} {% block body %}
+<div class="dashboard-wrapper">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h3>UVAS Portal</h3>
+    </div>
+    <ul class="sidebar-menu">
+      <li class="active">
+        <a href="#"><i class="fas fa-calendar-alt"></i> Timetable</a>
+      </li>
+      <li>
+        <a href="#"><i class="fas fa-book"></i> Subjects</a>
+      </li>
+      <li>
+        <a href="#"><i class="fas fa-user-graduate"></i> Students</a>
+      </li>
+      <li class="logout-item">
+        <a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="top-bar">
+      <div class="welcome-text">Welcome, <strong>{{ user_name }}</strong></div>
+      <button class="btn-add" onclick="openModal()">
+        <i class="fas fa-plus"></i> Add New Class
+      </button>
+    </div>
+
+    <div class="content-card">
+      <div class="card-header">
+        <h2>Weekly Timetable</h2>
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Time</th>
+              <th>Subject</th>
+              <th>Room</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="timetable-body">
+            {% for entry in timetable %}
+            <tr>
+              <td><span class="badge-day">{{ entry.day }}</span></td>
+              <td>{{ entry.start_time }} - {{ entry.end_time }}</td>
+              <td><strong>{{ entry.subject }}</strong></td>
+              <td>{{ entry.room }}</td>
+              <td>
+                <button
+                  class="btn-icon edit"
+                  onclick="openEditModal({{ entry | tojson|safe }})"
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button
+                  class="btn-icon delete"
+                  onclick="deleteEntry({{ entry.id }})"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="5" class="no-data">No classes scheduled yet.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="addModal" class="modal">
+  <div class="modal-content card-shadow">
+    <div class="modal-header">
+      <h3 id="modalTitle">
+        <i class="fas fa-calendar-plus"></i> Add New Class
+      </h3>
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+    </div>
+
+    <div class="modal-body">
+      <input type="hidden" id="entryId" />
+
+      <div class="form-row">
+        <div class="form-group">
+          <label><i class="fas fa-clock"></i> Start Time</label>
+          <input type="time" id="start_time" />
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-hourglass-end"></i> End Time</label>
+          <input type="time" id="end_time" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-day"></i> Day of Week</label>
+        <select id="day">
+          <option value="Monday">Monday</option>
+          <option value="Tuesday">Tuesday</option>
+          <option value="Wednesday">Wednesday</option>
+          <option value="Thursday">Thursday</option>
+          <option value="Friday">Friday</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-book"></i> Subject Name</label>
+        <input
+          type="text"
+          id="subject"
+          placeholder="e.g., Veterinary Medicine"
+        />
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-door-open"></i> Room / Laboratory</label>
+        <input type="text" id="room" placeholder="e.g., Lecture Hall A" />
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-save-final" onclick="saveClass()">
+        <i class="fas fa-check"></i> Save Schedule
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %}
