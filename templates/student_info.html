@@ -8,6 +8,10 @@
     <!-- Css file link -->
     <link rel="stylesheet"  href="/static/student_info.css">
 
+    <!-- Js file link-->
+    <script src="{{ url_for('static', filename='student_info.js') }}" defer></script>
+
+
 {% endblock %}
 
 {% block body %}
@@ -16,9 +20,11 @@
             <div class="info-header">
                 <h1>Student Info</h1>
             </div>
-            <div class="info-body">
+            <form id="studentInfoForm" class="info-body">
+
                 <h2>Campus</h2>
-                <select name="campus">
+                <select name="campus" id="campus">
+
                     <option value="">-- Select Campus --</option>
                     <option value="lahore">Lahore</option>
                     <option value="ravi">Ravi</option>
@@ -80,7 +86,8 @@
                 </select>
             </div>
             <div class="info-fotter">
-                <button>Submit</button>
+                <button type="submit">Submit</button>
+
             </div>
         </div>
     </div>
