@@ -33,7 +33,6 @@ body {
     max-width: 420px;   /* good for desktop */
     background-color: white;
     border-radius: 25px;
-    padding-bottom: 20px;
 }
 
 /* Student Info header style */
@@ -89,4 +88,9 @@ button:hover
 {
     background-color: #8b0000;
     color: white;
+}
+
+.info-footer
+{
+    padding-top: 20px;
 }
