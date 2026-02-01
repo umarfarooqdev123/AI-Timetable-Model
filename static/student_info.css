@@ -32,7 +32,7 @@ body {
     width: 90%;
     max-width: 420px;   /* good for desktop */
     background-color: white;
-    border-radius: 25px;
+    border-radius: 15px;
 }
 
 /* Student Info header style */
