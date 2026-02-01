@@ -1,43 +1,51 @@
-// Wait until the HTML content is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Get the student info form by its ID
     const form = document.getElementById("studentInfoForm");
-    if (!form) return; // Stop if form is not found
+    if (!form) return;
 
-    // Listen for form submission
+    const submitBtn = document.getElementById("button");
+
     form.addEventListener("submit", function (e) {
-        e.preventDefault(); // Prevent default form submission (page reload)
+        e.preventDefault();
 
-        // Get values from each dropdown by their IDs
         const campus = document.getElementById("campus").value;
         const department = document.getElementById("department").value;
         const semester = document.getElementById("semester").value;
         const section = document.getElementById("section").value;
 
-        // Simple validation: check if any field is empty
+        // Validate selections
         if (!campus || !department || !semester || !section) {
-            alert("Please select all fields"); // Show warning to user
-            return; // Stop submission
+            alert("Please select all fields");
+            return;
         }
 
-        // Send the student info to the Flask backend using fetch API
-        fetch("/student-info", {
-            method: "POST", // POST request
-            headers: { "Content-Type": "application/json" }, // Sending JSON data
-            body: JSON.stringify({
-                campus,
-                department,
-                semester,
-                section
-            })
+        // Disable button to prevent double submission
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Submitting...";
+
+        fetch("/get_timetable", {   // Call Flask route for timetable
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ campus, department, semester, section })
         })
-        .then(res => res.json()) // Parse JSON response
+        .then(res => res.json())
         .then(data => {
-            alert("Student info saved"); // Notify success
-            window.location.href = "/dashboard"; // Redirect to dashboard
+            if (data.success) {
+                alert("Timetable fetched successfully!");
+                form.reset();
+                window.location.href = "/dashboard"; 
+            } else {
+                alert(data.message || "Failed to fetch timetable. Try again.");
+            }
         })
-        .catch(() => alert("Server error")); // Notify if something goes wrong
+        .catch(err => {
+            console.error(err);
+            alert("Server error. Try again later.");
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit";
+        });
     });
 
 });
