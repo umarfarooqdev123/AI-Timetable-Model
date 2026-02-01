@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Css file link -->
+    <link rel="stylesheet"  href="/static/student_info.css">
+
+{% endblock %}
+
+{% block body %}
+    <div id="info-page">
+        <div class="info-container">
+            <div class="info-header">
+                <h1>Student Info</h1>
+            </div>
+            <div class="info-body">
+                <h2>Campus</h2>
+                <select name="campus">
+                    <option value="">-- Select Campus --</option>
+                    <option value="lahore">Lahore</option>
+                    <option value="ravi">Ravi</option>
+                    <option value="jhang">Jhang</option>
+                    <option value="naroval">Narowal</option>
+                    <option value="layah">Layah</option>
+                </select>
+                <h2>Department</h2>
+                <select name="department" id="department">
+                    <option value="">-- Select Department --</option>
+
+                    <!-- ===== Faculty of Veterinary Science ===== -->
+                    <option value="microbiology">Microbiology</option>
+                    <option value="pathology">Pathology</option>
+                    <option value="parasitology">Parasitology</option>
+                    <option value="theriogenology">Theriogenology</option>
+                    <option value="clinical_medicine">Clinical Medicine & Surgery</option>
+                    <option value="epidemiology">Epidemiology & Public Health</option>
+
+                    <!-- ===== Faculty of Animal Production & Technology ===== -->
+                    <option value="animal_nutrition">Animal Nutrition</option>
+                    <option value="livestock_production">Livestock Production</option>
+                    <option value="poultry_production">Poultry Production</option>
+
+                    <!-- ===== Faculty of Bio-Sciences ===== -->
+                    <option value="biochemistry">Biochemistry & Biotechnology</option>
+                    <option value="pharmacy">Pharmaceutical Sciences</option>
+                    <option value="food_science">Food Science & Human Nutrition</option>
+
+                    <!-- ===== Faculty of Business & Computer Sciences ===== -->
+                    <option value="computer_science">Statistics & Computer Science</option>
+                    <option value="business_management">Business Management</option>
+
+                    <!-- ===== Faculty of Fisheries & Wildlife ===== -->
+                    <option value="fisheries">Fisheries & Aquaculture</option>
+                    <option value="wildlife">Wildlife & Ecology</option>
+                </select>
+
+                <h2>Semester</h2>
+                <select name="semester" id="semester">
+                    <option value="">-- Select Semester --</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                <h2>Section</h2>
+                <select name="section" id="section">
+                    <option value="">-- Select Section --</option>
+                    <option value="a">A</option>
+                    <option value="b">B</option>
+                    <option value="e">E</option>
+                </select>
+            </div>
+            <div class="info-fotter">
+                <button>Submit</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
