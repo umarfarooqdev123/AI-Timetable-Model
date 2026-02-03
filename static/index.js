@@ -61,11 +61,10 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = "/login"
     });
 });
-// Add this inside your existing window.addEventListener('DOMContentLoaded', ... )
 
 const currentPath = window.location.pathname;
 
-// 1. If we are on the login page, skip or hide the splash screen immediately
+// If we are on the login page, skip or hide the splash screen immediately
 if (currentPath === "/login") {
     const splash = document.getElementById('splash-screen');
     const loginPage = document.getElementById('login-page');

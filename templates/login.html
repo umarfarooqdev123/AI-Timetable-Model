@@ -1,51 +1,62 @@
-{% extends "layout.html" %} 
+{% extends "layout.html" %} {% block head %}
 
-{% block head %}
+<!-- Font Awesome -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
 
-  <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
+<!-- Css File Link -->
+<link rel="stylesheet" href="/static/index.css" />
 
-  <!-- Css File Link -->
-  <link rel="stylesheet" href="/static/index.css" />
+<!-- Javascript File Link -->
+<script src="/static/index.js" defer></script>
 
-  <!-- Javascript File Link -->
-  <script src="/static/index.js" defer></script>
+{% endblock %} {% block body %}
+<div id="login-page" class="login-page-wrapper">
+  <div class="login-card">
+    <div class="login-header">
+      <h1 class="brand-name">UVAS</h1>
+      <h2 class="system-title">Timetable Management System</h2>
+      <p class="university-sub">
+        University of Veterinary and Animal Sciences, Lahore
+      </p>
+    </div>
 
-{% endblock %} 
+    <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Back</a>
 
-{% block body %}
-  <div id="login-page" class="login-page-wrapper">
-    <div class="login-card">
-      <div class="login-header">
-        <h1 class="brand-name">UVAS</h1>
-        <h2 class="system-title">Timetable Management System</h2>
-        <p class="university-sub">
-          University of Veterinary and Animal Sciences, Lahore
-        </p>
+    <form action="/login" method="POST" class="login-form">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="username" required />
       </div>
 
-      <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Back</a>
-
-      <form action="/login" method="POST" class="login-form">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="username" required />
-        </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required />
-        </div>
-
-        <button type="submit" class="btn-login-submit">Login</button>
-      </form>
-
-      <div class="login-footer">
-        <p>© 2026 UVAS Timetable System. All rights reserved.</p>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
       </div>
+
+      <button type="submit" class="btn-login-submit">Login</button>
+      {% if error %}
+      <div
+        style="
+          color: #721c24;
+          background-color: #f8d7da;
+          border: 1px solid #f5c6cb;
+          padding: 10px;
+          border-radius: 5px;
+          margin-bottom: 15px;
+          text-align: center;
+        "
+      >
+        <i class="fas fa-exclamation-circle"></i> {{ error }}
+      </div>
+      {% endif %}
+    </form>
+
+    <div class="login-footer">
+      <p>© 2026 UVAS Timetable System. All rights reserved.</p>
     </div>
   </div>
+</div>
 {% endblock %}

@@ -37,15 +37,15 @@ def init_db():
     if count == 0:
         # Add the first teacher
         cursor.execute("INSERT INTO users (email, full_name, password) VALUES (?, ?, ?)", 
-                       ('teacher@uvas.edu.pk', 'Dr. Ahmad', 'ahmad'))
-        print("Dr. Smith added.")
+                       ('ahmad@uvas.edu.pk', 'Dr. Ahmad', 'ahmad'))
+        print("Dr. Ahmad added.")
 
     # Re-check count to add the second teacher if he doesn't exist yet
     cursor.execute("SELECT COUNT(*) FROM users WHERE email = ?", ('dr.ali@uvas.edu.pk',))
     if cursor.fetchone()[0] == 0:
         # Add the second teacher
         cursor.execute("INSERT INTO users (email, full_name, password) VALUES (?, ?, ?)", 
-                       ('dr.ali@uvas.edu.pk', 'Dr. Ali', 'drali'))
+                       ('dr.ali@uvas.edu.pk', 'Dr. Ali', 'dr.ali'))
         print("Second teacher (Dr. Ali) added to database.")
     # ---------------------------
 
@@ -53,7 +53,7 @@ def init_db():
     conn.close()
 
 
-init_db()
+
 # Run the setup every time the app starts
 init_db()
 
@@ -66,7 +66,7 @@ def index():
 def student_info():
     return render_template("student_info.html")
 
-@app.route("/login")
+@app.route("/login",methods=["GET","POST"])
 def login():
     if request.method == "POST":
         email_input = request.form.get("username").strip().lower()
