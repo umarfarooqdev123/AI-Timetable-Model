@@ -41,6 +41,10 @@ def dashboard():
         return redirect(url_for("login"))
     return render_template("dashboard.html")
 
+@app.route("/admin/dashboard")
+def admin_dashboard():
+
+    return render_template("admin_dashboard.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
