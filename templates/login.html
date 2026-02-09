@@ -7,10 +7,10 @@
 />
 
 <!-- Css File Link -->
-<link rel="stylesheet" href="/static/index.css" />
+<link rel="stylesheet" href="/static/login.css" />
 
 <!-- Javascript File Link -->
-<script src="/static/index.js" defer></script>
+<script src="/static/login.js" defer></script>
 
 {% endblock %} {% block body %}
 <div id="login-page" class="login-page-wrapper">
@@ -38,17 +38,7 @@
 
       <button type="submit" class="btn-login-submit">Login</button>
       {% if error %}
-      <div
-        style="
-          color: #721c24;
-          background-color: #f8d7da;
-          border: 1px solid #f5c6cb;
-          padding: 10px;
-          border-radius: 5px;
-          margin-bottom: 15px;
-          text-align: center;
-        "
-      >
+      <div>
         <i class="fas fa-exclamation-circle"></i> {{ error }}
       </div>
       {% endif %}
