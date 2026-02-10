@@ -1,12 +1,17 @@
 from flask import Flask, render_template, redirect, request, session, url_for
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.secret_key = 'uvas_secret_key'
 
-TEACHERS = {
-    "ahmad@uvas.edu.pk": {"password": "ahmad", "full_name": "Dr. Ahmad"},
-    "dr.ali@uvas.edu.pk": {"password": "dr.ali", "full_name": "Dr. Ali"}
-}
+# 1. Configure database connection
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:1234@localhost:5432/timetable_db"
+
+# 2. Disable unnecessary tracking for better performance
+app.config["SLQALCHEMY_TRACK_MODIFICATIONS"] = False
+
+# 3. Create database instance/object for better performance
+db = SQLAlchemy(app)
+
 
 @app.route("/")
 def index():
