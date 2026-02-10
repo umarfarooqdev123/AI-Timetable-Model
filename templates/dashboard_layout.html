@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Timetable Management System</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+
+<div class="wrapper">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2 class="logo">Admin Panel</h2>
+
+        <ul class="menu">
+            <li class="active"><i class="fa-solid fa-chart-line"></i> Dashboard</li>
+            <li><i class="fa-solid fa-user-gear"></i> Manage Teachers</li>
+            <li><i class="fa-solid fa-building"></i> Departments</li>
+            <li><i class="fa-solid fa-book"></i> Subjects</li>
+            <li><i class="fa-solid fa-table"></i> View Timetables</li>
+            <li><i class="fa-solid fa-circle-check"></i> Approve Changes</li>
+            <li><i class="fa-solid fa-gear"></i> Settings</li>
+            <li><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <h1>AI Timetable Management System</h1>
+            <button class="logout-btn">Logout</button>
+        </nav>
+
+        {% block content %}{% endblock %}
+
+    </div>
+</div>
+
+</body>
+</html>

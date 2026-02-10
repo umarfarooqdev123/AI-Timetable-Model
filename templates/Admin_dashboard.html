@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="dashboard">
+
+    <!-- Cards -->
+    <div class="cards">
+        <div class="card">
+            <div class="card-info">
+                <p>Total Teachers</p>
+                <h2>12</h2>
+            </div>
+            <div class="card-icon teacher">
+                <div class="icon-bg">
+                    <i class="fa-solid fa-user-group"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-info">
+                <p>Total Subjects</p>
+                <h2>30</h2>
+            </div>
+            <div class="card-icon subject">
+                <div class="icon-bg">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-info">
+                <p>Departments</p>
+                <h2>5</h2>
+            </div>
+            <div class="card-icon department">
+                <div class="icon-bg">
+                    <i class="fa-solid fa-building-columns"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-info">
+                <p>Total Timetables</p>
+                <h2>8</h2>
+            </div>
+            <div class="card-icon timetable">
+                <div class="icon-bg">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-box">
+        <table>
+            <thead>
+                <tr>
+                    <th>Department</th>
+                    <th>Semester</th>
+                    <th>Status</th>
+                    <th>Last Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Computer Science</td>
+                    <td>Semester 1</td>
+                    <td class="approved">Approved</td>
+                    <td>2 Feb 2026</td>
+                </tr>
+                <tr>
+                    <td>Information Tech</td>
+                    <td>Semester 3</td>
+                    <td class="pending">Pending</td>
+                    <td>5 Feb 2026</td>
+                </tr>
+                <tr>
+                    <td>Software Eng</td>
+                    <td>Semester 5</td>
+                    <td class="approved">Approved</td>
+                    <td>7 Feb 2026</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}
