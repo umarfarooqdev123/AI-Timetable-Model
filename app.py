@@ -1,3 +1,4 @@
+from auth import auth
 from flask import Flask, render_template, redirect, request, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -9,13 +10,22 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:1234@localhost:5432/timetable_db"
 
 # 2. Disable unnecessary tracking for better performance
-app.config["SLQALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # 3. Create database instance/object for better performance
 db = SQLAlchemy(app)
 
 def generate_uuid():
     return str(uuid.uuid4())
+
+# Teacher Data (Temporary storage for login verification)
+TEACHERS = {
+    "teacher@uvas.edu.pk": {"name": "Dr.Fareed", "password": "fareed@21", "full_name": "Dr.Fareed"},
+    "ali@uvas.edu.pk": {"name": "Dr.Ali", "password": "ali@21", "full_name": "Dr.Ali"}
+}
+
+# Register the Blueprint globally
+app.register_blueprint(auth)
 
 # ------------- Admin Table --------------------
 class Admin(db.Model):
@@ -143,6 +153,7 @@ def student_info():
 def login():
     if request.method == "POST":
         email_input = request.form.get("username").strip()
+
         pass_input = request.form.get("password").strip()
         if email_input in TEACHERS:
             # Check if the password matches the email
@@ -158,7 +169,9 @@ def login():
     return render_template("login.html")
 
 @app.route("/Admin_dashboard")
-def Admin_dashboard(): 
+def Admin_dashboard():
+    # YOUR SECURITY CHECK:
+    # "if user emailis NOT in the bag, go away!" 
     if "user_email" not in session:
         return redirect(url_for("login"))
     return render_template("Admin_dashboard.html")
