@@ -7,8 +7,9 @@
 }
 
 body {
-    background-color: #8b0000; /* University Maroon */
-    overflow-x: hidden;
+    background-color: #8b0000; 
+    overflow: hidden;
+    overscroll-behavior: none;
 }
 
 
