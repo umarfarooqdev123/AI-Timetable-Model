@@ -20,12 +20,20 @@ body {
     background: #0f1b36; /* solid color as per screenshot */
     color: white;
     padding: 20px;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;   /* full height of screen */
+    overflow-y: auto; /* allows sidebar scrolling if menu is long */
 }
 
 .logo {
     text-align: center;
     margin-bottom: 30px;
+    position: sticky;  /* stick to top */
+    top: 0;            /* 0px from top of sidebar */
+    background: #0f1b36; /* same color to cover background when scrolling */
+    z-index: 10;
 }
 
 .menu li {
@@ -60,6 +68,8 @@ body {
 /* Main */
 .main {
     flex: 1;
+    margin-left: 260px;  /* leave space for fixed sidebar */
+    padding-top: 80px; 
 }
 
 /* Navbar */
@@ -69,6 +79,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;   /* fixed on top */
+    top: 0;
+    left: 260px;       /* same as sidebar width */
+    right: 0;
+    z-index: 1000;     /* stay above other content */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .logout-btn {
@@ -78,6 +94,8 @@ body {
     padding: 10px 18px;
     border-radius: 8px;
     cursor: pointer;
+    text-decoration: none;
+    
 }
 
 /* Dashboard */
