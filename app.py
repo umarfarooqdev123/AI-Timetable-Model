@@ -1,6 +1,7 @@
 from auth import auth
 from flask import Flask, render_template, redirect, request, session, url_for
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 import uuid
 
 app = Flask(__name__)
@@ -9,7 +10,7 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:1234@localhost:5432/timetable_db"
 
 # 2. Disable unnecessary tracking for better performance
-app.config["SLQALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # 3. Create database instance/object for better performance
 db = SQLAlchemy(app)
