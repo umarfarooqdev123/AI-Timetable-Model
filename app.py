@@ -69,6 +69,39 @@ class Teacher(db.Model):
     join_date = db.Column(db.Date)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    # Relationships
+    subjects = db.relationship(
+        'TeacherSubject',
+        backref='teacher',
+        lazy=True
+    )
+
+  # -------- Teacher_Subject Relation Table --------
+class TeacherSubject(db.Model):
+    __tablename__ = 'teacher_subjects'
+
+    teacher_subject_id = db.Column(
+        db.String(36),
+        primary_key=True,
+        default=generate_uuid
+    )
+
+    teacher_id = db.Column(
+        db.String(36),
+        db.ForeignKey('teachers.teacher_id'),
+        nullable=False
+    )
+
+    subject_id = db.Column(
+        db.String(36),
+        db.ForeignKey('subjects.subject_id'),
+        nullable=False
+    )
+
+    semester = db.Column(db.Integer, nullable=False)
+    year = db.Column(db.Integer, nullable=False)
+    weekly_hours = db.Column(db.Integer, nullable=False)
+  
 
 # ----------------- Subject Table ------------------
 class Subject(db.Model):
@@ -88,7 +121,14 @@ class Subject(db.Model):
     description = db.Column(db.Text)
     is_active = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)    
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+        # Relationships
+    teachers = db.relationship(
+        'TeacherSubject',
+        backref='subject',
+        lazy=True
+    )
+   
 
 @app.route("/")
 def index():
