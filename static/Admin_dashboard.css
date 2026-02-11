@@ -94,12 +94,13 @@ body {
 
 .card {
     background: white;
-    padding: 20px;
-    border-radius: 12px; /* updated */
+    padding: 28px 30px;   /* more height & width */
+    min-height: 135px;    /* fixes box height */
+    border-radius: 16px;  /* softer corners */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* subtle */
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
 }
 
 .card-info p {
@@ -108,13 +109,14 @@ body {
 }
 
 .card-info h2 {
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 28px;   /* was 24 */
+    font-weight: 700;
 }
 
+
 .card-icon .icon-bg {
-    width: 50px;
-    height: 50px;
+    width: 56px;
+    height: 56px;
     background: #e0f2fe; /* light blue square */
     display: flex;
     justify-content: center;
@@ -167,3 +169,14 @@ tbody tr:hover {
     color: #f59e0b;
     font-weight: 600;
 }
+
+/* Dashboard Footer */
+.dashboard-footer {
+    margin-top: 50px;
+    padding: 15px 0;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
