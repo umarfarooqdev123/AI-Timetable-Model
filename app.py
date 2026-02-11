@@ -5,10 +5,7 @@ from datetime import datetime
 import uuid
 
 app = Flask(__name__)
-
-
-app.secret_key = 'uvas_secret_key'
-
+app.secret_key = "timetable"
 
 # 1. Configure database connection
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:1234@localhost:5432/timetable_db"
@@ -183,6 +180,7 @@ def login():
                 return redirect(url_for("Admin_dashboard"))
             
             elif user_data["role"] == "teacher":
+                # This will look for a function named 'Teacher_dashboard'
                 return redirect(url_for("Teacher_dashboard"))
         
         else:
@@ -196,19 +194,14 @@ def Admin_dashboard():
     if "user_email" not in session:
         return redirect(url_for("login"))
     return render_template("Admin_dashboard.html")
-
-@app.route("/Admin_dashboard/departments")
+@app.route("/departments")
 def departments():
     return render_template("departments.html")
-
 @app.route("/Teacher_dashboard")
 def Teacher_dashboard():
     if "user_email" not in session:
         return redirect(url_for("login"))
     return render_template("Teacher_dashboard.html")
     
-
-
-
 if __name__ == "__main__":
     app.run(debug=True)
