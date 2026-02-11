@@ -1,14 +1,17 @@
+from auth import auth
 from flask import Flask, render_template, redirect, request, session, url_for
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 import uuid
 
 app = Flask(__name__)
+app.secret_key = 'uvas_secret_key'
 
 # 1. Configure database connection
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:1234@localhost:5432/timetable_db"
 
 # 2. Disable unnecessary tracking for better performance
-app.config["SLQALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # 3. Create database instance/object for better performance
 db = SQLAlchemy(app)
@@ -16,9 +19,18 @@ db = SQLAlchemy(app)
 def generate_uuid():
     return str(uuid.uuid4())
 
+# Teacher Data (Temporary storage for login verification)
+TEACHERS = {
+    "teacher@uvas.edu.pk": {"name": "Dr.Fareed", "password": "fareed@21", "full_name": "Dr.Fareed"},
+    "ali@uvas.edu.pk": {"name": "Dr.Ali", "password": "ali@21", "full_name": "Dr.Ali"}
+}
+
+# Register the Blueprint globally
+app.register_blueprint(auth)
+
 # ------------- Admin Table --------------------
 class Admin(db.Model):
-    __tablename__ = 'admins'
+    _tablename_ = 'admins'
 
     admin_id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
     username = db.Column(db.String(50), unique=True, nullable=False)
@@ -33,7 +45,7 @@ class Admin(db.Model):
 
 # -------------- Department Table --------------
 class Department(db.Model):
-    __tablename__ = 'departments'
+    _tablename_ = 'departments'
 
     department_id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
     department_code = db.Column(db.String(20), unique=True, nullable=False)
@@ -48,7 +60,7 @@ class Department(db.Model):
 
 # ------------- Teacher Table ------------------
 class Teacher(db.Model):
-    __tablename__ = 'teachers'
+    _tablename_ = 'teachers'
 
     teacher_id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
     employee_id = db.Column(db.String(20), unique=True, nullable=False)
@@ -78,7 +90,7 @@ class Teacher(db.Model):
 
   # -------- Teacher_Subject Relation Table --------
 class TeacherSubject(db.Model):
-    __tablename__ = 'teacher_subjects'
+    _tablename_ = 'teacher_subjects'
 
     teacher_subject_id = db.Column(
         db.String(36),
@@ -105,7 +117,7 @@ class TeacherSubject(db.Model):
 
 # ----------------- Subject Table ------------------
 class Subject(db.Model):
-    __tablename__ = 'subjects'
+    _tablename_ = 'subjects'
 
     subject_id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
     subject_code = db.Column(db.String(20), unique=True, nullable=False)
@@ -142,6 +154,7 @@ def student_info():
 def login():
     if request.method == "POST":
         email_input = request.form.get("username").strip()
+
         pass_input = request.form.get("password").strip()
         if email_input in TEACHERS:
             # Check if the password matches the email
@@ -157,10 +170,16 @@ def login():
     return render_template("login.html")
 
 @app.route("/Admin_dashboard")
-def Admin_dashboard(): 
+def Admin_dashboard():
+    # YOUR SECURITY CHECK:
+    # "if user emailis NOT in the bag, go away!" 
     if "user_email" not in session:
         return redirect(url_for("login"))
     return render_template("Admin_dashboard.html")
+
+@app.route("/Admin_dashboard/departments")
+def departments():
+    return render_template("departments.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

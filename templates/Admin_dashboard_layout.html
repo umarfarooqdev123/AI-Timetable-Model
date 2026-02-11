@@ -8,7 +8,7 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <!-- Main CSS -->
+    <!-- Admin Dashboard CSS -->
     <link rel="stylesheet" href="/static/Admin_dashboard.css">
 </head>
 <body>
@@ -27,7 +27,10 @@
             <li><i class="fa-solid fa-table"></i> View Timetables</li>
             <li><i class="fa-solid fa-circle-check"></i> Approve Changes</li>
             <li><i class="fa-solid fa-gear"></i> Settings</li>
-            <li><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+            <li><a href="{{ url_for('auth.logout') }}" style="color: inherit; text-decoration: none; display: block; width: 100%;">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+            </li>
         </ul>
     </aside>
 
@@ -37,7 +40,7 @@
         <!-- Navbar -->
         <nav class="navbar">
             <h1>AI Timetable Management System</h1>
-            <button class="logout-btn">Logout</button>
+            <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
         </nav>
 
         {% block body %}{% endblock %}
