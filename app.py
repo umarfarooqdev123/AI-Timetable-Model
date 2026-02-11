@@ -5,6 +5,7 @@ from datetime import datetime
 import uuid
 
 app = Flask(__name__)
+app.secret_key = "timetable"
 
 # 1. Configure database connection
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:1234@localhost:5432/timetable_db"
@@ -20,10 +21,17 @@ def generate_uuid():
 
 # Teacher Data (Temporary storage for login verification)
 TEACHERS = {
-    "teacher@uvas.edu.pk": {"name": "Dr.Fareed", "password": "fareed@21", "full_name": "Dr.Fareed"},
-    "ali@uvas.edu.pk": {"name": "Dr.Ali", "password": "ali@21", "full_name": "Dr.Ali"}
+    "teacher@uvas.edu.pk": {
+        "password": "fareed@21", 
+        "full_name": "Dr.Fareed", 
+        "role": "admin"  
+    },
+    "ali@uvas.edu.pk": {
+        "password": "ali@21", 
+        "full_name": "Dr.Ali", 
+        "role": "teacher" 
+    }
 }
-
 # Register the Blueprint globally
 app.register_blueprint(auth)
 
@@ -152,22 +160,33 @@ def student_info():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        email_input = request.form.get("username").strip()
+        email_input = request.form.get("username", "").strip()
+        pass_input = request.form.get("password", "").strip()
 
-        pass_input = request.form.get("password").strip()
-        if email_input in TEACHERS:
-            # Check if the password matches the email
-            if TEACHERS[email_input]["password"] == pass_input:
-                session["user_email"] = email_input
-                session["user_name"] = TEACHERS[email_input]["full_name"]
+        if not email_input or not pass_input:
+            return render_template("login.html", error="Please fill in all fields.")
+
+        # Get user data from dictionary
+        user_data = TEACHERS.get(email_input)
+
+        if user_data and user_data["password"] == pass_input:
+            # Set session data
+            session["user_email"] = email_input
+            session["user_name"] = user_data["full_name"]
+            session["role"] = user_data["role"]
+
+            # --- LOGIC FOR DIFFERENT DASHBOARDS ---
+            if user_data["role"] == "admin":
                 return redirect(url_for("Admin_dashboard"))
-            else:
-                return render_template("login.html", error="Incorrect Password")
+            
+            elif user_data["role"] == "teacher":
+                # This will look for a function named 'Teacher_dashboard'
+                return redirect(url_for("Teacher_dashboard"))
+        
         else:
-            return render_template("login.html", error="User not found")
+            return render_template("login.html", error="Invalid email or password.")
             
     return render_template("login.html")
-
 @app.route("/Admin_dashboard")
 def Admin_dashboard():
     # YOUR SECURITY CHECK:
@@ -178,5 +197,11 @@ def Admin_dashboard():
 @app.route("/departments")
 def departments():
     return render_template("departments.html")
+@app.route("/Teacher_dashboard")
+def Teacher_dashboard():
+    if "user_email" not in session:
+        return redirect(url_for("login"))
+    return render_template("Teacher_dashboard.html")
+    
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,52 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>AI Timetable Management System</title>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="/static/Admin_dashboard.css">
-</head>
-<body>
-
-<div class="wrapper">
-
-    <!-- Sidebar -->
-    <aside class="sidebar">
+    <link rel="stylesheet" href="/static/Admin_dashboard.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <aside class="sidebar">
         <h2 class="logo">Admin Panel</h2>
 
         <ul class="menu">
-            <li class="active"><i class="fa-solid fa-chart-line"></i> Dashboard</li>
-            <li><i class="fa-solid fa-user-gear"></i> Manage Teachers</li>
-            <li><i class="fa-solid fa-building"></i> Departments</li>
-            <li><i class="fa-solid fa-book"></i> Subjects</li>
-            <li><i class="fa-solid fa-table"></i> View Timetables</li>
-            <li><i class="fa-solid fa-circle-check"></i> Approve Changes</li>
-            <li><i class="fa-solid fa-gear"></i> Settings</li>
-            <li><a href="{{ url_for('auth.logout') }}" style="color: inherit; text-decoration: none; display: block; width: 100%;">
-                <i class="fa-solid fa-right-from-bracket"></i> Logout
-                </a>
-            </li>
+          <li class="active">
+            <i class="fa-solid fa-chart-line"></i> Dashboard
+          </li>
+          <li><i class="fa-solid fa-user-gear"></i> Manage Teachers</li>
+           <li>
+            <a
+              href="{{ url_for('departments') }}"
+              style="
+                color: inherit;
+                text-decoration: none;
+                display: block;
+                width: 100%;
+              "
+            >
+              <i class="fa-solid fa-building"></i> Departments
+            </a>
+          </li>
+          <li><i class="fa-solid fa-book"></i> Subjects</li>
+          <li><i class="fa-solid fa-table"></i> View Timetables</li>
+          <li><i class="fa-solid fa-circle-check"></i> Approve Changes</li>
+          <li><i class="fa-solid fa-gear"></i> Settings</li>
+          <li>
+            <a
+              href="{{ url_for('auth.logout') }}"
+              style="
+                color: inherit;
+                text-decoration: none;
+                display: block;
+                width: 100%;
+              "
+            >
+              <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+          </li>
         </ul>
-    </aside>
+      </aside>
 
-    <!-- Main Content -->
-    <div class="main">
-
+      <!-- Main Content -->
+      <div class="main">
         <!-- Navbar -->
         <nav class="navbar">
-            <h1>AI Timetable Management System</h1>
-            <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
+          <h1>AI Timetable Management System</h1>
+          <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
         </nav>
 
         {% block body %}{% endblock %}
-
+      </div>
     </div>
-</div>
-
-</body>
+  </body>
 </html>

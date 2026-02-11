@@ -303,36 +303,3 @@ body {
         margin-right: 15px;
     }
 }
-/* Layout Fix for Icons */
-.input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.input-wrapper i {
-    position: absolute;
-    left: 12px;
-    color: #8b0000; /* Maroon Icons */
-    font-size: 14px;
-}
-
-.login-form input {
-    padding-left: 40px !important; /* Move text to the right to make room for icon */
-    height: 48px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 100%;
-}
-
-/* Error Message Styling */
-.error-msg {
-    background-color: #fff5f5;
-    color: #c53030;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #feb2b2;
-    margin-bottom: 15px;
-    font-size: 13px;
-    display: block; /* Ensures it shows properly */
-}

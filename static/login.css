@@ -147,3 +147,35 @@ body {
         font-size: 18px;
     }
 }
+/* Only show the red border after the user has tried to type something */
+input:placeholder-shown {
+    border: 1.5px solid #ddd;
+}
+
+/* Ensure the error message is centered since it's inside the card */
+.error-msg {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 5px;
+}
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input {
+    padding-right: 40px; /* Make space for the icon */
+}
+
+.password-wrapper i {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s;
+}
+
+.password-wrapper i:hover {
+    color: #8b0000; /* Turns maroon on hover */
+}
