@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request, session, url_for
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 import uuid
 
 app = Flask(__name__)
@@ -18,7 +19,7 @@ def generate_uuid():
 
 # ------------- Admin Table --------------------
 class Admin(db.Model):
-    __tablename__ = 'admins'
+    _tablename_ = 'admins'
 
     admin_id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
     username = db.Column(db.String(50), unique=True, nullable=False)
@@ -33,7 +34,7 @@ class Admin(db.Model):
 
 # -------------- Department Table --------------
 class Department(db.Model):
-    __tablename__ = 'departments'
+    _tablename_ = 'departments'
 
     department_id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
     department_code = db.Column(db.String(20), unique=True, nullable=False)
@@ -48,7 +49,7 @@ class Department(db.Model):
 
 # ------------- Teacher Table ------------------
 class Teacher(db.Model):
-    __tablename__ = 'teachers'
+    _tablename_ = 'teachers'
 
     teacher_id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
     employee_id = db.Column(db.String(20), unique=True, nullable=False)
@@ -78,7 +79,7 @@ class Teacher(db.Model):
 
   # -------- Teacher_Subject Relation Table --------
 class TeacherSubject(db.Model):
-    __tablename__ = 'teacher_subjects'
+    _tablename_ = 'teacher_subjects'
 
     teacher_subject_id = db.Column(
         db.String(36),
@@ -105,7 +106,7 @@ class TeacherSubject(db.Model):
 
 # ----------------- Subject Table ------------------
 class Subject(db.Model):
-    __tablename__ = 'subjects'
+    _tablename_ = 'subjects'
 
     subject_id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
     subject_code = db.Column(db.String(20), unique=True, nullable=False)
@@ -161,6 +162,8 @@ def Admin_dashboard():
     if "user_email" not in session:
         return redirect(url_for("login"))
     return render_template("Admin_dashboard.html")
-
+@app.route("/departments")
+def departments():
+    return render_template("departments.html")
 if __name__ == "__main__":
     app.run(debug=True)

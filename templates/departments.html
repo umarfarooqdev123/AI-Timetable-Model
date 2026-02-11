@@ -1,0 +1,81 @@
+{% extends "Admin_dashboard_layout.html" %} 
+
+{% block body %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<link rel="stylesheet" href="/static/departments.css" />
+
+<div class="main-container">
+  <div class="top-bar">
+    <h2 class="page-title">All Departments</h2>
+
+    <div class="top-actions">
+      <button type="button" class="btn btn-export">
+        <i class="fas fa-file-export"></i> Export List
+      </button>
+
+      <button type="button" class="btn btn-add">
+        <i class="fas fa-plus"></i> Add Department
+      </button>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <div class="table-responsive">
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Department</th>
+            <th>Teachers</th>
+            <th>Subjects</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>
+              <div class="dept-flex">
+                <div class="icon blue">
+                  <i class="fas fa-laptop-code"></i>
+                </div>
+                <div>
+                  <div class="name">Computer Science</div>
+                  <div class="sub">CS Department</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="tag blue">4 Teachers</span></td>
+            <td><span class="tag purple">8 Subjects</span></td>
+            <td class="actions">
+              <i class="fas fa-eye view" title="View"></i>
+              <i class="fas fa-edit edit" title="Edit"></i>
+              <i class="fas fa-trash delete" title="Delete"></i>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="dept-flex">
+                <div class="icon blue">
+                  <i class="fas fa-microscope"></i>
+                </div>
+                <div>
+                  <div class="name">MLT</div>
+                  <div class="sub">MLT Department</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="tag blue">10 Teachers</span></td>
+            <td><span class="tag purple">5 Subjects</span></td>
+            <td class="actions">
+              <i class="fas fa-eye view" title="View"></i>
+              <i class="fas fa-edit edit" title="Edit"></i>
+              <i class="fas fa-trash delete" title="Delete"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
