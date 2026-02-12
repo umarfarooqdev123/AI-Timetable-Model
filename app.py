@@ -190,8 +190,18 @@ def Admin_dashboard():
     # YOUR SECURITY CHECK:
     # "if user emailis NOT in the bag, go away!" 
     if "user_email" not in session:
-        return redirect(url_for("login"))
-    return render_template("Admin_dashboard.html")
+        return redirect("login")
+
+    # Counts
+    total_departments = Department.query.count()
+    total_teachers = Teacher.query.count()
+    total_subjects = Subject.query.count()
+
+    return render_template("Admin_dashboard.html", 
+    total_departments=total_departments,
+    total_teachers=total_teachers,
+    total_subjects=total_subjects
+    )
 
 @app.route("/departments")
 def departments():
