@@ -1,20 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subjects Dashboard</title>
-    
-    <link rel="stylesheet" href="../static/subjects.css">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
+{% extends "Admin_dashboard_layout.html" %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='subjects.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h2 class="title">All Subjects</h2>
+            <div>
+                <a href="{{ url_for('admin_dashboard') }}" style="text-decoration: none; color: #5c6bc0; font-size: 14px;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+                </a>
+                <h2 class="title" style="margin-top: 10px;">All Subjects</h2>
+            </div>
+            
             <div class="header-actions">
                 <button class="btn btn-export">
                     <i class="fa-solid fa-file-export"></i> Export List
@@ -87,6 +86,4 @@
         </div>
     </div>
 </div>
-
-</body>
-</html>
+{% endblock %}
