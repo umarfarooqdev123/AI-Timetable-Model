@@ -1,33 +1,44 @@
-/* Base Styles */
 body {
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI', Roboto, system-ui, -apple-system, Helvetica, Arial, sans-serif;
     background-color: #f8f9fa;
     margin: 0;
-    padding: 20px;
+    padding: 0;
     color: #333;
 }
 
 .container {
-    max-width: 1100px;
-    margin: 0 auto;
+    max-width: 1050px;
+    margin: 40px auto;
+    padding: 0 15px;
 }
 
 /* Card Container */
 .card {
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
     overflow: hidden;
     border: 1px solid #eef0f2;
 }
 
 /* Header Section */
 .card-header {
-    display: flex;
+    /* display: flex;
+    gap: 12px;
     justify-content: space-between;
     align-items: center;
     padding: 20px 25px;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 28px;
+    border-bottom: 1px solid #edf0f5;
+}
+
+.header-actions{
+    display: flex;
+    gap: 12px;
 }
 
 .title {
@@ -38,8 +49,11 @@ body {
 
 /* Buttons */
 .btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     padding: 10px 18px;
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: 500;
     cursor: pointer;
     border: none;
@@ -69,6 +83,8 @@ body {
 /* Table Styles */
 .table-responsive {
     overflow-x: auto;
+    width: 100%;
+    display: block;
 }
 
 .subject-table {
@@ -79,18 +95,30 @@ body {
 
 .subject-table th {
     background-color: #fcfdfe;
-    padding: 15px 25px;
+    padding: 18px 30px;
     color: #5c6bc0;
     font-weight: 600;
     font-size: 14px;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid #edf0f5;
 }
 
 .subject-table td {
-    padding: 18px 25px;
+    padding: 22px 30px;
     border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle;
     font-size: 14px;
     color: #555;
+}
+
+.subject-table td:last-child{
+    display: flex;
+    gap: 10px;
+    align-items: cneter;
+}
+
+/* Row hover effect (new) */
+.subject-table tbody tr:hover {
+    background-color: #f9fbff;
 }
 
 .code-text {
@@ -121,8 +149,8 @@ body {
 .action-btn {
     width: 35px;
     height: 35px;
-    border-radius: 4px;
-    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    border: 1px solid #e3e6ed;
     background: #fff;
     cursor: pointer;
     transition: 0.2s;
@@ -138,5 +166,6 @@ body {
 }
 
 .action-btn:hover {
-    background-color: #f5f5f5;
+    background-color: #f4f6fb;
+    transform: translateY(-1px); 
 }

@@ -1,92 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subjects Dashboard</title>
-    
-    <link rel="stylesheet" href="../static/subjects.css">
+{% extends "Admin_dashboard_layout.html" %}
+
+{% block head %}    
+    <link rel="stylesheet" href="/static/subjects.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
+{% endblock %}
 
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-            <h2 class="title">All Subjects</h2>
-            <div class="header-actions">
-                <button class="btn btn-export">
-                    <i class="fa-solid fa-file-export"></i> Export List
-                </button>
-                <button class="btn btn-add">
-                    <i class="fa-solid fa-plus"></i> Add Subject
-                </button>
+{% block body %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="title">All Subjects</h2>
+                <div class="header-actions">
+                    <button class="btn btn-export">
+                        <i class="fa-solid fa-file-export"></i> Export List
+                    </button>
+                    <button class="btn btn-add">
+                        <i class="fa-solid fa-plus"></i> Add Subject
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="subject-table">
+                    <thead>
+                        <tr>
+                            <th>Subject Name</th>
+                            <th>Code</th>
+                            <th>Department</th>
+                            <th>Assigned Teacher</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Introduction to Programming</td>
+                            <td class="code-text">CS101</td>
+                            <td>Computer Science</td>
+                            <td>
+                                <div class="teacher-info">
+                                    <span class="avatar"><i class="fa-solid fa-user"></i></span>
+                                    Dr. Robert Smith
+                                </div>
+                            </td>
+                            <td>
+                                <button class="action-btn edit-btn"><i class="fa-regular fa-pen-to-square"></i></button>
+                                <button class="action-btn delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Data Structures & Algorithms</td>
+                            <td class="code-text">CS201</td>
+                            <td>Computer Science</td>
+                            <td>
+                                <div class="teacher-info">
+                                    <span class="avatar"><i class="fa-solid fa-user"></i></span>
+                                    Prof. Jennifer Wilson
+                                </div>
+                            </td>
+                            <td>
+                                <button class="action-btn edit-btn"><i class="fa-regular fa-pen-to-square"></i></button>
+                                <button class="action-btn delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Database Management Systems</td>
+                            <td class="code-text">IT301</td>
+                            <td>Information Technology</td>
+                            <td>
+                                <div class="teacher-info">
+                                    <span class="avatar"><i class="fa-solid fa-user"></i></span>
+                                    Dr. Michael Brown
+                                </div>
+                            </td>
+                            <td>
+                                <button class="action-btn edit-btn"><i class="fa-regular fa-pen-to-square"></i></button>
+                                <button class="action-btn delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-
-        <div class="table-responsive">
-            <table class="subject-table">
-                <thead>
-                    <tr>
-                        <th>Subject Name</th>
-                        <th>Code</th>
-                        <th>Department</th>
-                        <th>Assigned Teacher</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Introduction to Programming</td>
-                        <td class="code-text">CS101</td>
-                        <td>Computer Science</td>
-                        <td>
-                            <div class="teacher-info">
-                                <span class="avatar"><i class="fa-solid fa-user"></i></span>
-                                Dr. Robert Smith
-                            </div>
-                        </td>
-                        <td>
-                            <button class="action-btn edit-btn"><i class="fa-regular fa-pen-to-square"></i></button>
-                            <button class="action-btn delete-btn"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Data Structures & Algorithms</td>
-                        <td class="code-text">CS201</td>
-                        <td>Computer Science</td>
-                        <td>
-                            <div class="teacher-info">
-                                <span class="avatar"><i class="fa-solid fa-user"></i></span>
-                                Prof. Jennifer Wilson
-                            </div>
-                        </td>
-                        <td>
-                            <button class="action-btn edit-btn"><i class="fa-regular fa-pen-to-square"></i></button>
-                            <button class="action-btn delete-btn"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Database Management Systems</td>
-                        <td class="code-text">IT301</td>
-                        <td>Information Technology</td>
-                        <td>
-                            <div class="teacher-info">
-                                <span class="avatar"><i class="fa-solid fa-user"></i></span>
-                                Dr. Michael Brown
-                            </div>
-                        </td>
-                        <td>
-                            <button class="action-btn edit-btn"><i class="fa-regular fa-pen-to-square"></i></button>
-                            <button class="action-btn delete-btn"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
-</div>
 
-</body>
-</html>
+{% endblock %}
