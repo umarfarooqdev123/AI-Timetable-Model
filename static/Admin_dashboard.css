@@ -20,12 +20,21 @@ body {
     background: #0f1b36; /* solid color as per screenshot */
     color: white;
     padding: 20px;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 .logo {
     text-align: center;
     margin-bottom: 30px;
+    position: sticky;    /* STAYS FIXED INSIDE SIDEBAR */
+    top: 0;
+    background: #0f1b36;
+    padding: 10px 0;
+    z-index: 10;
 }
 
 .menu li {
@@ -60,6 +69,8 @@ body {
 /* Main */
 .main {
     flex: 1;
+    margin-left: 260px;   /* space for sidebar */
+    padding-top: 80px;    /* space for navbar */
 }
 
 /* Navbar */
@@ -69,6 +80,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;     /* FIXED */
+    top: 0;
+    left: 260px;         /* same as sidebar width */
+    right: 0;
+    height: 80px;
+
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .logout-btn {
@@ -84,6 +103,7 @@ body {
 /* Dashboard */
 .dashboard {
     padding: 30px;
+    min-height: calc(100vh - 80px);
 }
 
 /* Cards */
