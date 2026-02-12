@@ -6,19 +6,13 @@ body {
 }
 
 .main-container {
-    padding: 20px;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     gap: 24px;
-    
-    /* FIX 1: Use calc to subtract sidebar width from total width */
-    width: calc(100% - 260px); 
+    width: 100%;
     box-sizing: border-box;
-    
-    /* FIX 2: Ensure it starts after the sidebar */
-    margin-left: 260px; 
-    margin-top: 60px;   
-    
+
     /* FIX 3: Prevent any internal overflow from creating a scrollbar */
     overflow-x: hidden; 
 }
