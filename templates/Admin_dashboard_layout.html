@@ -24,19 +24,11 @@
           <li class="active">
             <i class="fa-solid fa-chart-line"></i> Dashboard
           </li>
-         <li>
-         <a href="{{ url_for('manage_teachers') }}" style="color: inherit; text-decoration: none; display: block; width: 100%;">
-           <i class="fa-solid fa-user-gear"></i> Manage Teachers
-         </a>
-        </li>
-
-       <li>
-        <a href="{{ url_for('view_timetable') }}" style="color: inherit; text-decoration: none; display: block; width: 100%;">
-          <i class="fa-solid fa-table"></i> View Timetables
-        </a>
-       </li>
-            
-            
+          <li>
+            <a href="{{ url_for('manage_teachers') }}" style="color: inherit; text-decoration: none; display: block; width: 100%;">
+            <i class="fa-solid fa-user-gear"></i> Manage Teachers
+          </a>
+          <li>     
             <a
               href="{{ url_for('departments') }}"
               style="
@@ -62,7 +54,11 @@
             <i class="fa-solid fa-book"></i> Subjects
             </a>
           </li>
-          <li><i class="fa-solid fa-table"></i> View Timetables</li>
+          <li>
+            <a href="{{ url_for('view_timetable') }}" style="color: inherit; text-decoration: none; display: block; width: 100%;">
+              <i class="fa-solid fa-table"></i> View Timetables
+            </a>
+          </li>
            <li>
             <a
               href="{{ url_for('approve_changes') }}"

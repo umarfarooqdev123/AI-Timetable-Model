@@ -208,5 +208,21 @@ def Teacher_dashboard():
         return redirect(url_for("login"))
     return render_template("Teacher_dashboard.html")
 
+@app.route("/manage_teachers")
+def manage_teachers():
+    return render_template("manage_teachers.html")
+
+@app.route("/approve_changes")
+def approve_changes():
+    return render_template("approve_changes.html")
+
+@app.route("/settings")
+def settings():
+    return render_template("settings.html")
+
+@app.route("/view_timetable")
+def view_timetable():
+    return render_template("view_timetable.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
