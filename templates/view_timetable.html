@@ -1,0 +1,32 @@
+{% extends "Admin_dashboard_layout.html" %}
+
+{% block content %}
+<div style="padding: 30px;">
+    <h2 style="margin-bottom: 20px;">Weekly Timetable View</h2>
+    
+    <div style="background: white; border-radius: 15px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        <table style="width: 100%; border-collapse: separate; border-spacing: 10px;">
+            <thead>
+                <tr>
+                    <th style="background: #f8f9fa; padding: 15px; border-radius: 10px;">Time</th>
+                    <th style="background: #34495e; color: white; padding: 15px; border-radius: 10px;">Monday</th>
+                    <th style="background: #34495e; color: white; padding: 15px; border-radius: 10px;">Tuesday</th>
+                    <th style="background: #34495e; color: white; padding: 15px; border-radius: 10px;">Wednesday</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">09:00 AM</td>
+                    <td style="background: #e1f5fe; padding: 15px; border-radius: 10px; border-left: 5px solid #03a9f4;">
+                        <strong>AI Ethics</strong><br><small>Room 102</small>
+                    </td>
+                    <td style="background: #f1f1f1; text-align: center; color: #999; border-radius: 10px;">Free Slot</td>
+                    <td style="background: #e8f5e9; padding: 15px; border-radius: 10px; border-left: 5px solid #4caf50;">
+                        <strong>Data Structures</strong><br><small>Lab 01</small>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

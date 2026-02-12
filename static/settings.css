@@ -1,0 +1,169 @@
+/* ─── Sidebar ─── */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 260px;
+    background-color: #1e293b;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+/* ─── Navbar ─── */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 260px;
+    right: 0;
+    height: 60px;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+
+/* ─── Main Wrapper ─── */
+.wrapper {
+    display: flex;
+}
+
+/* ─── Main Content Area ─── */
+.main {
+    margin-left: 260px;
+    margin-top: 60px;
+    min-height: calc(100vh - 60px);
+    width: calc(100% - 260px);
+    background-color: #f8f9fa;
+    overflow-y: auto;
+}
+
+/* ─── Dashboard Container ─── */
+.dashboard-container {
+    padding: 30px;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    box-sizing: border-box;
+}
+
+/* ─── Settings Layout ─── */
+.header-section {
+    margin-bottom: 25px;
+}
+
+.header-section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 800px;
+}
+
+/* ─── Cards ─── */
+.content-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 16px 24px;
+    background: #fcfcfc;
+    border-bottom: 1px solid #edf2f7;
+    font-weight: 600;
+    color: #334155;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ─── Forms ─── */
+.settings-form {
+    padding: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.form-group input {
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+    color: #1e293b;
+}
+
+.form-group input:focus {
+    border-color: #3b82f6;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* ─── Buttons ─── */
+.btn-save {
+    background-color: #2ecc71;
+    color: white;
+    padding: 11px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    transition: filter 0.2s;
+}
+
+.btn-update {
+    background-color: #1e293b;
+    color: white;
+    padding: 11px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    transition: filter 0.2s;
+}
+
+.btn-save:hover,
+.btn-update:hover {
+    filter: brightness(88%);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .navbar {
+        left: 0;
+    }
+
+    .main {
+        margin-left: 0;
+        width: 100%;
+    }
+}

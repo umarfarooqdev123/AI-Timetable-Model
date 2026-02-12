@@ -1,0 +1,47 @@
+{% extends "Admin_dashboard_layout.html" %}
+
+{% block body %}
+<link rel="stylesheet" href="/static/settings.css" />
+
+<div class="dashboard-container">
+    <div class="container-inner">
+        <div class="header-section">
+            <h2>Account Settings</h2>
+        </div>
+
+        <div class="content-card">
+            <div class="card-header">
+                <i class="fa-solid fa-user"></i> Admin Profile
+            </div>
+            <form action="/update-profile" method="POST" class="settings-form">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name" value="Admin User">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" value="admin@university.edu">
+                </div>
+                <button type="submit" class="btn-save">Save Profile</button>
+            </form>
+        </div>
+
+        <div class="content-card">
+            <div class="card-header">
+                <i class="fa-solid fa-lock"></i> Security
+            </div>
+            <form action="/change-password" method="POST" class="settings-form">
+                <div class="form-group">
+                    <label>Current Password</label>
+                    <input type="password" name="current_pwd" placeholder="Enter current password">
+                </div>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" name="new_pwd" placeholder="Enter new password">
+                </div>
+                <button type="submit" class="btn-update">Update Password</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
