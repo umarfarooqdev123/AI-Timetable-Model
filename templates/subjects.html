@@ -1,33 +1,25 @@
 {% extends "Admin_dashboard_layout.html" %}
 
 {% block head %}
-    <!-- Font Awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-
-    <!-- Subjects CSS -->
-    <link rel="stylesheet" href="/static/subjects.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='subjects.css') }}">
 {% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-            <h2 class="title">All Subjects</h2>
-            <div class="header-actions">
-                <button class="btn btn-export">
-                    <i class="fa-solid fa-file-export"></i> Export List
-                </button>
-                <button class="btn btn-add">
+<div class="main-container">
+    <div class="content-card">
+        <div class="card-top">
+            <h2 class="page-title">All Subjects</h2>
+            <div class="top-buttons">
+                <button class="btn-export"><i class="fa-solid fa-file-export"></i> Export List</button>
+                <button class="btn-add" onclick="showAddForm()">
                     <i class="fa-solid fa-plus"></i> Add Subject
                 </button>
             </div>
         </div>
 
-        <div class="table-responsive">
-            <table class="subject-table">
+        <div class="table-wrapper">
+            <table class="styled-table">
                 <thead>
                     <tr>
                         <th>Subject Name</th>
@@ -37,50 +29,29 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tableBody">
                     <tr>
-                        <td>Introduction to Programming</td>
+                        <td class="bold-text">Introduction to Programming</td>
                         <td class="code-text">CS101</td>
                         <td>Computer Science</td>
+                        <td><div class="teacher-info"><i class="fa-solid fa-circle-user"></i> <span>Dr. Robert Smith</span></div></td>
                         <td>
-                            <div class="teacher-info">
-                                <span class="avatar"><i class="fa-solid fa-user"></i></span>
-                                Dr. Robert Smith
+                            <div class="action-icons">
+                                <button class="edit-btn" onclick="prepareEdit(this)"><i class="fa-regular fa-pen-to-square"></i></button>
+                                <button class="delete-btn" onclick="deleteSubject(this)"><i class="fa-solid fa-trash-can"></i></button>
                             </div>
-                        </td>
-                        <td>
-                            <button class="action-btn edit-btn"><i class="fa-regular fa-pen-to-square"></i></button>
-                            <button class="action-btn delete-btn"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                     <tr>
-                        <td>Data Structures & Algorithms</td>
+                        <td class="bold-text">Data Structures & Algorithms</td>
                         <td class="code-text">CS201</td>
                         <td>Computer Science</td>
+                        <td><div class="teacher-info"><i class="fa-solid fa-circle-user"></i> <span>Prof. Jennifer Wilson</span></div></td>
                         <td>
-                            <div class="teacher-info">
-                                <span class="avatar"><i class="fa-solid fa-user"></i></span>
-                                Prof. Jennifer Wilson
+                            <div class="action-icons">
+                                <button class="edit-btn" onclick="prepareEdit(this)"><i class="fa-regular fa-pen-to-square"></i></button>
+                                <button class="delete-btn" onclick="deleteSubject(this)"><i class="fa-solid fa-trash-can"></i></button>
                             </div>
-                        </td>
-                        <td>
-                            <button class="action-btn edit-btn"><i class="fa-regular fa-pen-to-square"></i></button>
-                            <button class="action-btn delete-btn"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Database Management Systems</td>
-                        <td class="code-text">IT301</td>
-                        <td>Information Technology</td>
-                        <td>
-                            <div class="teacher-info">
-                                <span class="avatar"><i class="fa-solid fa-user"></i></span>
-                                Dr. Michael Brown
-                            </div>
-                        </td>
-                        <td>
-                            <button class="action-btn edit-btn"><i class="fa-regular fa-pen-to-square"></i></button>
-                            <button class="action-btn delete-btn"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 </tbody>
@@ -89,4 +60,107 @@
     </div>
 </div>
 
+<div id="subjectModal" class="custom-modal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 id="modalTitle">Add New Subject</h3>
+            <span class="close-icon" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="input-group">
+                <label>Subject Name</label>
+                <input type="text" id="subjectName" placeholder="e.g. Database Systems">
+            </div>
+            <div class="input-group">
+                <label>Subject Code</label>
+                <input type="text" id="subjectCode" placeholder="e.g. CS301">
+            </div>
+            <div class="input-group">
+                <label>Department</label>
+                <select id="subjectDept">
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Information Technology">Information Technology</option>
+                    <option value="Software Engineering">Software Engineering</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Assign Teacher</label>
+                <select id="subjectTeacher">
+                    <option value="Dr. Robert Smith">Dr. Robert Smith</option>
+                    <option value="Prof. Jennifer Wilson">Prof. Jennifer Wilson</option>
+                    <option value="Dr. Michael Brown">Dr. Michael Brown</option>
+                    <option value="Unassigned">Unassigned</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+            <button class="btn-save" onclick="handleSave()">Save Subject</button>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentRow = null;
+
+function showAddForm() {
+    currentRow = null;
+    document.getElementById("modalTitle").innerText = "Add New Subject";
+    document.getElementById("subjectName").value = "";
+    document.getElementById("subjectCode").value = "";
+    document.getElementById("subjectModal").style.display = "flex";
+}
+
+function closeModal() { document.getElementById("subjectModal").style.display = "none"; }
+
+function deleteSubject(element) {
+    if(confirm("Are you sure you want to delete this subject?")) {
+        element.closest('tr').remove();
+    }
+}
+
+function prepareEdit(element) {
+    currentRow = element.closest('tr');
+    document.getElementById("modalTitle").innerText = "Edit Subject";
+    document.getElementById("subjectName").value = currentRow.cells[0].innerText;
+    document.getElementById("subjectCode").value = currentRow.cells[1].innerText;
+    document.getElementById("subjectDept").value = currentRow.cells[2].innerText;
+    document.getElementById("subjectTeacher").value = currentRow.querySelector(".teacher-info span").innerText;
+    document.getElementById("subjectModal").style.display = "flex";
+}
+
+function handleSave() {
+    let name = document.getElementById("subjectName").value;
+    let code = document.getElementById("subjectCode").value;
+    let dept = document.getElementById("subjectDept").value;
+    let teacher = document.getElementById("subjectTeacher").value;
+
+    if(!name || !code) {
+        alert("Please fill Subject Name and Code!");
+        return;
+    }
+
+    if(currentRow) {
+        currentRow.cells[0].innerText = name;
+        currentRow.cells[1].innerText = code;
+        currentRow.cells[2].innerText = dept;
+        currentRow.querySelector(".teacher-info span").innerText = teacher;
+    } else {
+        let table = document.getElementById("tableBody");
+        let row = table.insertRow();
+        row.innerHTML = `
+            <td class="bold-text">${name}</td>
+            <td class="code-text">${code}</td>
+            <td>${dept}</td>
+            <td><div class="teacher-info"><i class="fa-solid fa-circle-user"></i> <span>${teacher}</span></div></td>
+            <td>
+                <div class="action-icons">
+                    <button class="edit-btn" onclick="prepareEdit(this)"><i class="fa-regular fa-pen-to-square"></i></button>
+                    <button class="delete-btn" onclick="deleteSubject(this)"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+            </td>`;
+    }
+    closeModal();
+}
+</script>
 {% endblock %}

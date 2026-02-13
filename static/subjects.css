@@ -1,165 +1,180 @@
 body {
-    font-family: 'Segoe UI', Roboto, system-ui, -apple-system, Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f8f9fa;
     margin: 0;
-    padding: 0;
-    color: #333;
 }
 
-.container {
-    max-width: 1050px;
-    margin: 40px auto;
-    padding: 0 15px;
+.main-container {
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
 }
 
-/* Card Container */
-.card {
-    background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+.content-card {
+    width: 100%;
+    max-width: 1100px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     overflow: hidden;
-    border: 1px solid #eef0f2;
 }
 
-/* Header Section */
-.card-header {
+.card-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 28px;
-    border-bottom: 1px solid #edf0f5;
+    padding: 20px 30px;
+    border-bottom: 1px solid #edf2f7;
 }
 
-.header-actions{
-    display: flex;
-    gap: 12px;
+.page-title {
+    color: #2d3748;
+    font-size: 20px;
+    font-weight: 700;
 }
 
-.title {
-    font-size: 22px;
-    color: #1a237e; /* Deep blue */
-    margin: 0;
-}
-
-/* Buttons */
-.btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+/* Button Styles from Image */
+.btn-export {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
     padding: 10px 18px;
     border-radius: 8px;
-    font-weight: 500;
     cursor: pointer;
-    border: none;
-    transition: 0.3s;
-    font-size: 14px;
-}
-
-.btn-export {
-    background-color: #f1f3f9;
-    color: #3f51b5;
-    margin-right: 8px;
-}
-
-.btn-export:hover {
-    background-color: #e2e6f0;
+    font-weight: 500;
+    margin-right: 10px;
 }
 
 .btn-add {
-    background-color: #4fc3f7; /* Sky blue */
+    background: #4cc9f0;
     color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
 }
 
-.btn-add:hover {
-    background-color: #29b6f6;
-}
+.btn-add:hover { background: #3ab0d6; }
 
-/* Table Styles */
-.table-responsive {
-    overflow-x: auto;
-    width: 100%;
-    display: block;
-}
-
-.subject-table {
+/* Table Styling */
+.styled-table {
     width: 100%;
     border-collapse: collapse;
+}
+
+.styled-table th {
+    background: #f8faff;
+    color: #4361ee;
+    padding: 15px 25px;
     text-align: left;
+    font-size: 13px;
+    text-transform: uppercase;
 }
 
-.subject-table th {
-    background-color: #fcfdfe;
-    padding: 18px 30px;
-    color: #5c6bc0;
-    font-weight: 600;
-    font-size: 14px;
-    border-bottom: 1px solid #edf0f5;
+.styled-table td {
+    padding: 18px 25px;
+    border-bottom: 1px solid #f1f5f9;
 }
 
-.subject-table td {
-    padding: 22px 30px;
-    border-bottom: 1px solid #f0f0f0;
-    vertical-align: middle;
-    font-size: 14px;
-    color: #555;
-}
+.bold-text { font-weight: 600; color: #2d3436; }
+.code-text { font-weight: 700; color: #4361ee; }
 
-.subject-table td:last-child{
-    display: flex;
-    gap: 10px;
-    align-items: cneter;
-}
-
-/* Row hover effect (new) */
-.subject-table tbody tr:hover {
-    background-color: #f9fbff;
-}
-
-.code-text {
-    color: #1a237e;
-    font-weight: 600;
-}
-
-/* Teacher Info Section */
 .teacher-info {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
-.avatar {
-    width: 32px;
-    height: 32px;
-    background-color: #e8f5e9;
-    color: #4caf50;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-}
+.teacher-info i { color: #10b981; font-size: 16px; }
 
-/* Action Buttons */
-.action-btn {
-    width: 35px;
-    height: 35px;
-    border-radius: 8px;
-    border: 1px solid #e3e6ed;
-    background: #fff;
+/* Action Icons */
+.action-icons { display: flex; gap: 8px; }
+.edit-btn, .delete-btn {
+    border: none;
+    padding: 7px;
+    border-radius: 6px;
     cursor: pointer;
     transition: 0.2s;
 }
 
-.edit-btn {
-    color: #4fc3f7;
-    margin-right: 5px;
+.edit-btn { background: #e0f7fa; color: #00bcd4; }
+.delete-btn { background: #ffebee; color: #f44336; }
+
+.edit-btn:hover { background: #00bcd4; color: white; }
+.delete-btn:hover { background: #f44336; color: white; }
+
+/* Modal Styling */
+.custom-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
 }
 
-.delete-btn {
-    color: #ef5350;
+.modal-box {
+    background: white;
+    width: 450px;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    overflow: hidden;
 }
 
-.action-btn:hover {
-    background-color: #f4f6fb;
-    transform: translateY(-1px); 
+.modal-header {
+    padding: 15px 25px;
+    background: #f8faff;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+}
+
+.close-icon { cursor: pointer; font-size: 24px; color: #aaa; }
+
+.modal-body { padding: 25px; }
+
+.input-group { margin-bottom: 15px; }
+.input-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #4361ee;
+}
+
+.input-group input, .input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.modal-footer {
+    padding: 15px 25px;
+    background: #f8faff;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-save {
+    background: #4361ee;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background: #edf2f7;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
 }
