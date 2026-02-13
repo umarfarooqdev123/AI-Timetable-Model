@@ -12,6 +12,7 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="/static/Admin_dashboard.css" />
+    {% block head %}{% endblock %}
   </head>
   <body>
     <div class="wrapper">
@@ -23,7 +24,7 @@
 
           <!-- Dashboard -->
           <li class="{% if request.endpoint == 'dashboard' %}active{% endif %}">
-            <a href="{{ url_for('dashboard') }}">
+            <a href="{{ url_for('Admin_dashboard') }}">
               <i class="fa-solid fa-chart-line"></i> Dashboard
             </a>
           </li>
