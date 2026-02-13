@@ -2,6 +2,7 @@ from auth import auth
 from flask import Flask, render_template, redirect, request, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from werkzeug.security import check_password_hash
 import uuid
 
 app = Flask(__name__)
@@ -37,7 +38,7 @@ app.register_blueprint(auth)
 
 # ------------- Admin Table --------------------
 class Admin(db.Model):
-    _tablename_ = 'admins'
+    __tablename__ = 'admins'
 
     admin_id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
     username = db.Column(db.String(50), unique=True, nullable=False)
@@ -50,24 +51,9 @@ class Admin(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-# -------------- Department Table --------------
-class Department(db.Model):
-    _tablename_ = 'departments'
-
-    department_id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
-    department_code = db.Column(db.String(20), unique=True, nullable=False)
-    department_name = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.Text)
-    hod_teacher_id = db.Column(db.String(36), db.ForeignKey('teachers.teacher_id'))
-    total_teachers = db.Column(db.Integer, default=0)
-    total_subjects = db.Column(db.Integer, default=0)
-    is_active = db.Column(db.Boolean, default=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-
 # ------------- Teacher Table ------------------
 class Teacher(db.Model):
-    _tablename_ = 'teachers'
+    __tablename__ = 'teachers'
 
     teacher_id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
     employee_id = db.Column(db.String(20), unique=True, nullable=False)
@@ -95,9 +81,24 @@ class Teacher(db.Model):
         lazy=True
     )
 
+# -------------- Department Table --------------
+class Department(db.Model):
+    __tablename__ = 'departments'
+
+    department_id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
+    department_code = db.Column(db.String(20), unique=True, nullable=False)
+    department_name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text)
+    hod_teacher_id = db.Column(db.String(36), db.ForeignKey('teachers.teacher_id'))
+    total_teachers = db.Column(db.Integer, default=0)
+    total_subjects = db.Column(db.Integer, default=0)
+    is_active = db.Column(db.Boolean, default=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
   # -------- Teacher_Subject Relation Table --------
 class TeacherSubject(db.Model):
-    _tablename_ = 'teacher_subjects'
+    __tablename__ = 'teacher_subjects'
 
     teacher_subject_id = db.Column(
         db.String(36),
@@ -124,7 +125,7 @@ class TeacherSubject(db.Model):
 
 # ----------------- Subject Table ------------------
 class Subject(db.Model):
-    _tablename_ = 'subjects'
+    __tablename__ = 'subjects'
 
     subject_id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
     subject_code = db.Column(db.String(20), unique=True, nullable=False)
@@ -160,48 +161,78 @@ def student_info():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        email_input = request.form.get("username", "").strip()
-        pass_input = request.form.get("password", "").strip()
+        email_input = request.form.get("username").strip()
+        pass_input = request.form.get("password").strip()
 
-        if not email_input or not pass_input:
-            return render_template("login.html", error="Please fill in all fields.")
-
-        # Get user data from dictionary
-        user_data = TEACHERS.get(email_input)
-
-        if user_data and user_data["password"] == pass_input:
-            # Set session data
-            session["user_email"] = email_input
-            session["user_name"] = user_data["full_name"]
-            session["role"] = user_data["role"]
-
-            # --- LOGIC FOR DIFFERENT DASHBOARDS ---
-            if user_data["role"] == "admin":
+        # First check Admins
+        user = Admin.query.filter_by(email=email_input).first()
+        if user:
+            if check_password_hash(user.password_hash, pass_input):
+                session["user_id"] = user.admin_id
+                session["user_email"] = user.email
+                session["user_name"] = user.full_name
+                session["role"] = user.role
                 return redirect(url_for("Admin_dashboard"))
-            
-            elif user_data["role"] == "teacher":
-                # This will look for a function named 'Teacher_dashboard'
-                return redirect(url_for("Teacher_dashboard"))
-        
+            else:
+                return render_template("login.html", error="Incorrect Password")
+
+        # Placeholder for Teacher login
         else:
-            return render_template("login.html", error="Invalid email or password.")
+            # Logic for teachers will be implemented later
+            return render_template("login.html", error="Invalid email or password")
+
+    return render_template("login.html")
             
     return render_template("login.html")
+
 @app.route("/Admin_dashboard")
 def Admin_dashboard():
     # YOUR SECURITY CHECK:
     # "if user emailis NOT in the bag, go away!" 
     if "user_email" not in session:
-        return redirect(url_for("login"))
-    return render_template("Admin_dashboard.html")
+        return redirect("login")
+
+    # Counts
+    total_departments = Department.query.count()
+    total_teachers = Teacher.query.count()
+    total_subjects = Subject.query.count()
+
+    return render_template("Admin_dashboard.html", 
+    total_departments=total_departments,
+    total_teachers=total_teachers,
+    total_subjects=total_subjects
+    )
+
 @app.route("/departments")
 def departments():
     return render_template("departments.html")
+
+@app.route("/subjects")
+def subjects():
+    return render_template("subjects.html")
+    
+    
 @app.route("/Teacher_dashboard")
 def Teacher_dashboard():
     if "user_email" not in session:
         return redirect(url_for("login"))
     return render_template("Teacher_dashboard.html")
-    
+
+@app.route("/manage_teachers")
+def manage_teachers():
+    return render_template("manage_teachers.html")
+
+@app.route("/approve_changes")
+def approve_changes():
+    return render_template("approve_changes.html")
+
+@app.route("/settings")
+def settings():
+    return render_template("settings.html")
+
+@app.route("/view_timetable")
+def view_timetable():
+    return render_template("view_timetable.html")
+
 if __name__ == "__main__":
     app.run(debug=True)

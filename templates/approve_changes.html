@@ -1,0 +1,129 @@
+{% extends "Admin_dashboard_layout.html" %}
+
+{% block body %}
+<link rel="stylesheet" href="/static/approve_changes.css">
+<div class="dashboard-container">
+    <div class="header-section">
+        <h2>Change Requests</h2>
+        <div class="stats-summary">
+            <span class="stat">4 Pending</span>
+            <span class="stat">17 Approved</span>
+        </div>
+    </div>
+
+    <div class="filter-row">
+        <select name="department">
+            <option>All Departments</option>
+            <option>Computer Science</option>
+            <option>IT</option>
+            <option>FST</option>
+            <option>DVM</option>
+            <option>Poultry</option>
+
+        </select>
+        <input type="text" placeholder="Search teacher...">
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Teacher</th>
+                    <th>Department</th>
+                    <th>Subject</th>
+                    <th>Request</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Dr. Aisha Khan</td>
+                    <td>Computer Science</td>
+                    <td>Data Structures</td>
+                    <td><strong>Reschedule:</strong> Mon &rarr; Wed</td>
+                    <td><span class="badge pending">Pending</span></td>
+                    <td class="action-cell">
+                        <form action="/approve" method="POST">
+                            <input type="hidden" name="id" value="041">
+                            <button type="submit" class="btn btn-approve">Approve</button>
+                        </form>
+                        <form action="/reject" method="POST">
+                            <input type="hidden" name="id" value="041">
+                            <button type="submit" class="btn btn-reject">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+                 <tr>
+                    <td>Dr. Ahsan</td>
+                    <td>Food Science & Technology</td>
+                    <td>Food Composition</td>
+                    <td><strong>Reschedule:</strong> Fri &rarr; Mon</td>
+                    <td><span class="badge pending">Pending</span></td>
+                    <td class="action-cell">
+                        <form action="/approve" method="POST">
+                            <input type="hidden" name="id" value="041">
+                            <button type="submit" class="btn btn-approve">Approve</button>
+                        </form>
+                        <form action="/reject" method="POST">
+                            <input type="hidden" name="id" value="041">
+                            <button type="submit" class="btn btn-reject">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+                 <tr>
+                    <td>Dr.Smith</td>
+                    <td>DVM</td>
+                    <td>Veterinary Genetics</td>
+                    <td><strong>Reschedule:</strong> Mon &rarr; Wed</td>
+                    <td><span class="badge pending">Pending</span></td>
+                    <td class="action-cell">
+                        <form action="/approve" method="POST">
+                            <input type="hidden" name="id" value="041">
+                            <button type="submit" class="btn btn-approve">Approve</button>
+                        </form>
+                        <form action="/reject" method="POST">
+                            <input type="hidden" name="id" value="041">
+                            <button type="submit" class="btn btn-reject">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+                 <tr>
+                    <td>Dr. Aisha Khan</td>
+                    <td>Computer Science</td>
+                    <td>Data Structures</td>
+                    <td><strong>Reschedule:</strong> Mon &rarr; Wed</td>
+                    <td><span class="badge pending">Pending</span></td>
+                    <td class="action-cell">
+                        <form action="/approve" method="POST">
+                            <input type="hidden" name="id" value="041">
+                            <button type="submit" class="btn btn-approve">Approve</button>
+                        </form>
+                        <form action="/reject" method="POST">
+                            <input type="hidden" name="id" value="041">
+                            <button type="submit" class="btn btn-reject">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+                 <tr>
+                    <td>Dr. Fariya Khan</td>
+                    <td>Computer Science</td>
+                    <td>Data Structures</td>
+                    <td><strong>Reschedule:</strong> Mon &rarr; Wed</td>
+                    <td><span class="badge pending">Pending</span></td>
+                    <td class="action-cell">
+                        <form action="/approve" method="POST">
+                            <input type="hidden" name="id" value="041">
+                            <button type="submit" class="btn btn-approve">Approve</button>
+                        </form>
+                        <form action="/reject" method="POST">
+                            <input type="hidden" name="id" value="041">
+                            <button type="submit" class="btn btn-reject">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
