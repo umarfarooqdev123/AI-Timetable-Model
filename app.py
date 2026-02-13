@@ -1,4 +1,4 @@
-from auth import auth
+from auth import auth, admin_required
 from flask import Flask, render_template, redirect, request, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -160,6 +160,10 @@ def student_info():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+
+    # 1.for catching error from URL
+    error = request.args.get("error")
+
     if request.method == "POST":
         email_input = request.form.get("username").strip()
         pass_input = request.form.get("password").strip()
@@ -180,18 +184,12 @@ def login():
         else:
             # Logic for teachers will be implemented later
             return render_template("login.html", error="Invalid email or password")
-
-    return render_template("login.html")
-            
-    return render_template("login.html")
+    # If it’s a GET request (page load), then show the error message.”
+    return render_template("login.html", error=error)
 
 @app.route("/Admin_dashboard")
+@admin_required # Admin Decorator for security check (Only allow Admins to access this route)
 def Admin_dashboard():
-    # YOUR SECURITY CHECK:
-    # "if user emailis NOT in the bag, go away!" 
-    if "user_email" not in session:
-        return redirect("login")
-
     # Counts
     total_departments = Department.query.count()
     total_teachers = Teacher.query.count()
