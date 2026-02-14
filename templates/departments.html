@@ -32,47 +32,28 @@
         </thead>
 
         <tbody>
+          {% for department in departments %}
           <tr>
             <td>
               <div class="dept-flex">
                 <div class="icon blue">
-                  <i class="fas fa-laptop-code"></i>
+                  <i class="fas fa-university"></i>
                 </div>
                 <div>
-                  <div class="name">Computer Science</div>
-                  <div class="sub">CS Department</div>
+                  <div class="name">{{ department.department_name }}</div>
+                  <div class="sub">{{ department.department_code }}</div>
                 </div>
               </div>
             </td>
-            <td><span class="tag blue">4 Teachers</span></td>
-            <td><span class="tag purple">8 Subjects</span></td>
+            <td><span class="tag blue">{{ department.total_teachers }} Teachers</span></td>
+            <td><span class="tag purple">{{ department.total_subjects }} Subjects</span></td>
             <td class="actions">
               <i class="fas fa-eye view" title="View"></i>
               <i class="fas fa-edit edit" title="Edit"></i>
               <i class="fas fa-trash delete" title="Delete"></i>
             </td>
           </tr>
-
-          <tr>
-            <td>
-              <div class="dept-flex">
-                <div class="icon blue">
-                  <i class="fas fa-microscope"></i>
-                </div>
-                <div>
-                  <div class="name">MLT</div>
-                  <div class="sub">MLT Department</div>
-                </div>
-              </div>
-            </td>
-            <td><span class="tag blue">10 Teachers</span></td>
-            <td><span class="tag purple">5 Subjects</span></td>
-            <td class="actions">
-              <i class="fas fa-eye view" title="View"></i>
-              <i class="fas fa-edit edit" title="Edit"></i>
-              <i class="fas fa-trash delete" title="Delete"></i>
-            </td>
-          </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>

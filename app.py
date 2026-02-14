@@ -203,7 +203,9 @@ def Admin_dashboard():
 
 @app.route("/departments")
 def departments():
-    return render_template("departments.html")
+    # Fetch all departments from the database
+    all_departments = Department.query.all()
+    return render_template("departments.html", departments=all_departments)
 
 @app.route("/subjects")
 def subjects():
