@@ -1,7 +1,8 @@
-from app import app, db, Admin, Department 
+from app import app, db, Admin, Teacher, Department 
 from werkzeug.security import generate_password_hash
+from datetime import date
 
-
+# ---------- Adding defalut Admin in DB --------------
 def create_default_admin():
     with app.app_context():
 
@@ -32,6 +33,54 @@ def create_default_admin():
         print("Email: admin@timetable.com")
         print("Password: admin123")
 
+# ---------------- Adding default Teacher in DB ------------
+def create_default_teacher():
+    with app.app_context():
+
+        # Create tables first
+        db.create_all()
+
+        # First, get a department to assign teacher to
+        cs_dept = Department.query.filter_by(department_code="CS").first()
+        
+        if not cs_dept:
+            print("❌ No department found! Please seed departments first.")
+            return
+
+        # Check if teacher already exists
+        existing_teacher= Teacher.query.filter_by(email="teacher@uvas.edu.pk").first()
+
+        if existing_teacher:
+            print("✅ Default teacher already exists.")
+            return
+
+        # Create new teacher
+        teacher = Teacher(
+            employee_id="1234",
+            username="teacher",
+            email="teacher@uvas.edu.pk",
+            password_hash=generate_password_hash("teacher123"),
+            full_name="UVAS Teacher",
+            designation="Lecturer",
+            department_id=cs_dept.department_id,
+            qualification="M.Sc. Computer Science",
+            specialization="Web Development, Database Systems",
+            experience_years=5,
+            phone="+92-300-1234567",
+            address="University of Veterinary and Animal Sciences, Lahore",
+            max_weekly_hours=18,
+            preferred_time_slots={"morning": True, "afternoon": True, "evening": False},
+            is_active=True,
+            join_date=date(2023, 1, 15)
+        )
+
+        db.session.add(teacher)
+        db.session.commit()
+
+        print("✅ Default teacher created successfully!")
+        print("Email: teacher@uvas.edu.pk")
+        print("Password: teacher123")
+
 
 # --------- Adding Departments in DB -----------
 def seed_departments():
@@ -59,4 +108,5 @@ def seed_departments():
 
 if __name__ == "__main__":
     create_default_admin()
+    create_default_teacher()
     seed_departments()

@@ -20,19 +20,6 @@ db = SQLAlchemy(app)
 def generate_uuid():
     return str(uuid.uuid4())
 
-# Teacher Data (Temporary storage for login verification)
-TEACHERS = {
-    "teacher@uvas.edu.pk": {
-        "password": "fareed@21", 
-        "full_name": "Dr.Fareed", 
-        "role": "admin"  
-    },
-    "ali@uvas.edu.pk": {
-        "password": "ali@21", 
-        "full_name": "Dr.Ali", 
-        "role": "teacher" 
-    }
-}
 # Register the Blueprint globally
 app.register_blueprint(auth)
 
@@ -182,8 +169,20 @@ def login():
 
         # Placeholder for Teacher login
         else:
-            # Logic for teachers will be implemented later
-            return render_template("login.html", error="Invalid email or password")
+            if request.method == "POST":
+                email_input = request.form.get("username").strip()
+                pass_input = request.form.get("password").strip()
+
+                # First check Admins
+                user = Teacher.query.filter_by(email=email_input).first()
+                if user:
+                    if check_password_hash(user.password_hash, pass_input):
+                        session["user_id"] = user.teacher_id
+                        session["user_email"] = user.email
+                        session["user_name"] = user.full_name
+                        return redirect(url_for("Teacher_dashboard"))
+                    else:
+                        return render_template("login.html", error="Invalid email or password")
     # If it’s a GET request (page load), then show the error message.”
     return render_template("login.html", error=error)
 
