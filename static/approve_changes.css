@@ -1,11 +1,23 @@
+/* ─── Reset: prevent whole-page scroll ─── */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
 /* ─── Container ─── */
 .dashboard-container {
+    position: fixed;
+    top: 60px;
+    left: 260px;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 30px;
     background-color: #f8f9fa;
-    min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-left: 260px;
-    margin-top: 60px;
     box-sizing: border-box;
 }
 
@@ -18,7 +30,6 @@
     z-index: 1000;
     overflow-y: auto;
 }
-
 .navbar {
     position: fixed;
     top: 0; left: 260px; right: 0;
@@ -33,13 +44,11 @@
     align-items: center;
     margin-bottom: 25px;
 }
-
 .header-section h2 {
     font-size: 22px;
     font-weight: 700;
     color: #1e293b;
 }
-
 .stats-summary .stat {
     margin-left: 12px;
     font-size: 14px;
@@ -57,7 +66,6 @@
     gap: 12px;
     margin-bottom: 20px;
 }
-
 .filter-row input,
 .filter-row select {
     padding: 9px 12px;
@@ -69,7 +77,6 @@
     outline: none;
     color: #1e293b;
 }
-
 .filter-row input:focus,
 .filter-row select:focus {
     border-color: #3b82f6;
@@ -81,11 +88,14 @@
     border-radius: 12px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     border: 1px solid #e2e8f0;
-    overflow: hidden;
+    overflow-x: auto;
+    width: 100%;
 }
-
-table { width: 100%; border-collapse: collapse; }
-
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 620px;
+}
 th {
     background: #f8fafc;
     padding: 13px 18px;
@@ -97,7 +107,6 @@ th {
     color: #64748b;
     border-bottom: 1px solid #e2e8f0;
 }
-
 td {
     padding: 14px 18px;
     border-bottom: 1px solid #f1f5f9;
@@ -105,9 +114,8 @@ td {
     color: #1e293b;
     vertical-align: middle;
 }
-
 tbody tr:last-child td { border-bottom: none; }
-tbody tr:hover td      { background: #fafbfc;  }
+tbody tr:hover td      { background: #fafbfc; }
 
 /* ─── Badge ─── */
 .badge {
@@ -116,7 +124,6 @@ tbody tr:hover td      { background: #fafbfc;  }
     font-size: 12px;
     font-weight: 600;
 }
-
 .badge.pending  { background: #fff7ed; color: #c05621; }
 .badge.approved { background: #f0fdf4; color: #15803d; }
 .badge.rejected { background: #fef2f2; color: #dc2626; }
@@ -126,9 +133,7 @@ tbody tr:hover td      { background: #fafbfc;  }
     display: flex;
     gap: 8px;
 }
-
 .action-cell form { margin: 0; }
-
 .btn {
     padding: 7px 16px;
     border: none;
@@ -139,15 +144,16 @@ tbody tr:hover td      { background: #fafbfc;  }
     font-family: inherit;
     transition: opacity 0.15s;
 }
-
 .btn:hover { opacity: 0.85; }
-
 .btn-approve { background: #dcfce7; color: #15803d; }
 .btn-reject  { background: #fee2e2; color: #dc2626; }
 
 /* ─── Responsive ─── */
 @media (max-width: 768px) {
-    .dashboard-container { margin-left: 0; padding: 15px; }
+    .dashboard-container {
+        left: 0;
+        padding: 15px;
+    }
     .navbar  { left: 0; }
     .sidebar { transform: translateX(-100%); }
     .table-wrapper { overflow-x: auto; }
