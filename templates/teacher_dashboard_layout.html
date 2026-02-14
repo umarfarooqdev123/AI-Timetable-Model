@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Timetable Management System</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+</head>
+<body>
+
+    <!-- ─── Sidebar ─── -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <h1>Teacher Panel</h1>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="/teacher/dashboard" class="{{ 'active' if active_page == 'dashboard' else '' }}">
+                <i class="fas fa-chart-line"></i>
+               Dashboard
+            </a>
+            <a href="/teacher/timetable" class="{{ 'active' if active_page == 'timetable' else '' }}">
+                <i class="fas fa-calendar-alt"></i>
+                Create Timetable
+            </a>
+            <a href="/teacher/classes" class="{{ 'active' if active_page == 'classes' else '' }}">
+                <i class="fas fa-chalkboard"></i>
+                Total Classes
+            </a>
+            <a href="/teacher/subjects" class="{{ 'active' if active_page == 'subjects' else '' }}">
+                <i class="fas fa-book"></i>
+             Subjects Assigned
+            </a>
+            <a href="/teacher/rooms" class="{{ 'active' if active_page == 'rooms' else '' }}">
+                <i class="fas fa-door-open"></i>
+                Assigned Rooms
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="/logout">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- ─── Navbar ─── -->
+    <nav class="navbar">
+        <span class="navbar-title">AI Timetable Management System</span>
+        <a href="/logout" class="btn-logout">Logout</a>
+    </nav>
+
+    <!-- ─── Page Content ─── -->
+    {% block body %}{% endblock %}
+
+</body>
+</html>
