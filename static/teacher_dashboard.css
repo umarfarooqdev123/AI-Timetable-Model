@@ -31,7 +31,7 @@ html, body {
 }
 
 .sidebar-brand h1 {
-    font-size: 18px;
+    font-size: 25px;
     font-weight: 800;
     color: #ffffff;
 }
@@ -44,7 +44,7 @@ html, body {
 .sidebar-nav a {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 40px;
     padding: 12px 14px;
     border-radius: 10px;
     color:white;
@@ -53,7 +53,7 @@ html, body {
     margin-bottom: 4px;
     transition: all 0.15s;
     /* Increased Sidebar Font Size Only */
-    font-size: 18px; 
+    font-size: 16px; 
     cursor: pointer;
 }
 
@@ -122,6 +122,7 @@ html, body {
     font-size: 13px;
     font-weight: 700;
     cursor: pointer;
+    text-decoration:None
 }
 
 /* ─── MAIN CONTENT ─── */

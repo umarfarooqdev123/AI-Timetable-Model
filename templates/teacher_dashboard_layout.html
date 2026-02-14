@@ -6,6 +6,11 @@
     <title>AI Timetable Management System</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/static/teacher_dashboard.css" />
+    {% block head %}{% endblock %}
 
 
 </head>
@@ -18,11 +23,11 @@
         </div>
 
         <nav class="sidebar-nav">
-            <a href="/teacher/dashboard" class="{{ 'active' if active_page == 'dashboard' else '' }}">
+            <a href="/teacher_dashboard" class="{{ 'active' if active_page == 'dashboard' else '' }}">
                 <i class="fas fa-chart-line"></i>
                Dashboard
             </a>
-            <a href="/teacher/timetable" class="{{ 'active' if active_page == 'timetable' else '' }}">
+            <a href="/teacher/create_timetable" class="{{ 'active' if active_page == 'timetable' else '' }}">
                 <i class="fas fa-calendar-alt"></i>
                 Create Timetable
             </a>
@@ -30,11 +35,11 @@
                 <i class="fas fa-chalkboard"></i>
                 Total Classes
             </a>
-            <a href="/teacher/subjects" class="{{ 'active' if active_page == 'subjects' else '' }}">
+            <a href="/teacher/subjects_assigned" class="{{ 'active' if active_page == 'subjects' else '' }}">
                 <i class="fas fa-book"></i>
              Subjects Assigned
             </a>
-            <a href="/teacher/rooms" class="{{ 'active' if active_page == 'rooms' else '' }}">
+            <a href="/teacher/assigned_rooms" class="{{ 'active' if active_page == 'rooms' else '' }}">
                 <i class="fas fa-door-open"></i>
                 Assigned Rooms
             </a>

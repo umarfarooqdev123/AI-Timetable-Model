@@ -1,0 +1,71 @@
+{% extends "teacher_dashboard_layout.html" %} 
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='subjects_assigned.css') }}" />
+
+<div class="main-content-wrapper">
+    <div class="container-fluid">
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 style="font-weight: 700; color: #1e293b;">Assigned Rooms</h2>
+            <div class="semester-tag">Semester: Fall 2026</div>
+        </div>
+
+        <div class="card subject-card shadow-sm">
+            <div class="card-header-custom border-bottom bg-white p-3">
+                <i class="fas fa-door-open me-2 text-primary"></i> 
+                <strong>Your Room Schedule</strong>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead style="background-color: #f8fafc;">
+                            <tr>
+                                <th class="ps-4 py-3">Room No</th>
+                                <th class="py-3">Location/Building</th>
+                                <th class="py-3">Subject Name</th>
+                                <th class="py-3">Time Slot</th>
+                                <th class="py-3 text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for room in assigned_rooms %}
+                            <tr>
+                                <td class="ps-4" style="font-weight: 700; color: #4f46e5;">{{ room.room_no }}</td>
+                                <td>{{ room.building }}</td>
+                                <td style="font-weight: 500;">{{ room.subject }}</td>
+                                <td><i class="far fa-clock me-1"></i> {{ room.time }}</td>
+                                <td class="text-center">
+                                    <span class="badge {% if room.is_occupied %}bg-soft-danger{% else %}bg-soft-success{% endif %}">
+                                        {{ 'Occupied' if room.is_occupied else 'Available' }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td class="ps-4" style="font-weight: 700; color: #4f46e5;">Lab 2</td>
+                                <td>IT Building - 1st Floor</td>
+                                <td style="font-weight: 500;">Data Structures</td>
+                                <td>09:00 AM - 10:30 AM</td>
+                                <td class="text-center">
+                                    <span class="status-badge-occupied">Occupied</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="ps-4" style="font-weight: 700; color: #4f46e5;">Room 101</td>
+                                <td>Main Block</td>
+                                <td style="font-weight: 500;">OOP</td>
+                                <td>11:00 AM - 12:30 PM</td>
+                                <td class="text-center">
+                                    <span class="status-badge-available">Available</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
