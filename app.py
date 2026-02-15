@@ -249,5 +249,28 @@ def subjects_assigned():
 def assigned_rooms():
     return render_template("assigned_rooms.html")
 
+@app.route("/add_department", methods=["POST"])
+@admin_required
+def add_department():
+    department_name = request.form.get("department_name")
+    department_code = request.form.get("department_code")
+    total_teachers = request.form.get("total_teachers", 0)
+    total_subjects = request.form.get("total_subjects", 0)
+
+    if not department_name or not department_code:
+        # handle error if required
+        return redirect(url_for("departments"))
+
+    new_department = Department(
+        department_name=department_name,
+        department_code=department_code,
+        total_teachers=int(total_teachers),
+        total_subjects=int(total_subjects)
+    )
+    db.session.add(new_department)
+    db.session.commit()
+    
+    return redirect(url_for("departments"))
+
 if __name__ == "__main__":
     app.run(debug=True)

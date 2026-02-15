@@ -3,6 +3,9 @@
 {% block body %}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
   <link rel="stylesheet" href="/static/departments.css" />
+  <!--Add Department.css Link-->
+  <link rel="stylesheet" href="/static/add_department_form.css" />
+
   
 <div class="main-container">
   <div class="top-bar">
@@ -59,4 +62,8 @@
     </div>
   </div>
 </div>
+<!--Add depatment.js link-->
+{% include 'add_department_form.html' %}
+<script src="{{ url_for('static', filename='departments.js') }}"></script>
+
 {% endblock %}
