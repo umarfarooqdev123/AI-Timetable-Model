@@ -209,13 +209,6 @@ def departments():
 @app.route("/subjects")
 def subjects():
     return render_template("subjects.html")
-    
-    
-@app.route("/Teacher_dashboard")
-def Teacher_dashboard():
-    if "user_email" not in session:
-        return redirect(url_for("login"))
-    return render_template("Teacher_dashboard.html")
 
 @app.route("/manage_teachers")
 def manage_teachers():
@@ -232,6 +225,29 @@ def settings():
 @app.route("/view_timetable")
 def view_timetable():
     return render_template("view_timetable.html")
+    
+
+@app.route("/Teacher_dashboard")
+def Teacher_dashboard():
+    if "user_email" not in session:
+        return redirect(url_for("login"))
+    return render_template("Teacher_dashboard.html")
+
+@app.route("/create_timetable")
+def create_timetable():
+    return render_template("create_timetable.html")
+
+@app.route("/total_classes")
+def total_classes():
+    return render_template("total_classes.html")
+
+@app.route("/subjects_assigned")
+def subjects_assigned():
+    return render_template("subjects_assigned.html")
+
+@app.route("/assigned_rooms")
+def assigned_rooms():
+    return render_template("assigned_rooms.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

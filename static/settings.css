@@ -6,7 +6,6 @@
 /* ─── Main Content Area ─── */
 .main {
     margin-left: 260px;
-    margin-top: 60px;
     min-height: calc(100vh - 60px);
     width: calc(100% - 260px);
     background-color: #f8f9fa;
@@ -15,6 +14,13 @@
 
 /* ─── Dashboard Container ─── */
 .dashboard-container {
+    position: fixed;
+    top: 80px;
+    left: 260px;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 30px;
     font-family: 'Segoe UI', Tahoma, sans-serif;
     box-sizing: border-box;
@@ -45,6 +51,7 @@
     border: 1px solid #e2e8f0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     overflow: hidden;
+    margin-bottom: 30px;
 }
 
 .card-header {

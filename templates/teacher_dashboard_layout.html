@@ -6,61 +6,86 @@
     <title>AI Timetable Management System</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
 
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="/static/teacher_dashboard.css" />
-    {% block head %}{% endblock %}
-
+    <!-- Teacher dashboard CSS -->
+    <link rel="stylesheet" href="/static/teacher_dashboard.css">
 
 </head>
 <body>
 
     <!-- ─── Sidebar ─── -->
-    <aside class="sidebar">
-        <div class="sidebar-brand">
-            <h1>Teacher Panel</h1>
-        </div>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2 class="logo">Teacher Panel</h2>
 
-        <nav class="sidebar-nav">
-            <a href="/teacher_dashboard" class="{{ 'active' if active_page == 'dashboard' else '' }}">
-                <i class="fas fa-chart-line"></i>
-               Dashboard
-            </a>
-            <a href="/teacher/create_timetable" class="{{ 'active' if active_page == 'timetable' else '' }}">
-                <i class="fas fa-calendar-alt"></i>
-                Create Timetable
-            </a>
-            <a href="/teacher/classes" class="{{ 'active' if active_page == 'classes' else '' }}">
-                <i class="fas fa-chalkboard"></i>
-                Total Classes
-            </a>
-            <a href="/teacher/subjects_assigned" class="{{ 'active' if active_page == 'subjects' else '' }}">
-                <i class="fas fa-book"></i>
-             Subjects Assigned
-            </a>
-            <a href="/teacher/assigned_rooms" class="{{ 'active' if active_page == 'rooms' else '' }}">
-                <i class="fas fa-door-open"></i>
-                Assigned Rooms
-            </a>
+            <ul class="menu">
+
+                <!-- Dashboard -->
+                <li class="{% if request.endpoint == 'Teacher_dashboard' or request.endpoint == 'None' %}active{% endif %}">
+                    <a href="{{ url_for('Teacher_dashboard') }}">
+                        <i class="fas fa-chart-line"></i>Dashboard
+                    </a>
+                </li>
+
+                <!-- Create Timetable -->
+                <li class="{% if request.endpoint == 'create_timetable' %}active{% endif %}">
+                    <a href="{{ url_for('create_timetable') }}">
+                        <i class="fas fa-calendar-alt"></i>Create Timetable
+                    </a>
+                </li>
+
+                <!-- Total Classes -->
+                <li class="{% if request.endpoint == 'total_classes' %}active{% endif %}">
+                    <a href="{{ url_for('total_classes') }}">
+                        <i class="fas fa-chalkboard"></i>Total Classes
+                    </a>
+                </li>
+
+                <!-- Subjects Assigned -->
+                <li class="{% if request.endpoint == 'subjects_assigned' %}active{% endif %}">
+                    <a href="{{ url_for('subjects_assigned') }}">
+                        <i class="fas fa-book"></i>Subjects Assigned
+                    </a>
+                </li>
+
+                <!-- Assigned Rooms -->
+                <li class="{% if request.endpoint == 'assigned_rooms' %}active{% endif %}">
+                    <a href="{{ url_for('assigned_rooms') }}">
+                        <i class="fas fa-door-open"></i>Assigned Rooms
+                    </a>
+                </li>
+
+                <!-- Logout -->
+                <li>
+                    <a href="{{ url_for('auth.logout') }}">
+                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                    </a>
+                </li>
+
+            </ul>
+        </aside>
+
+        <!-- ─── Navbar ─── -->
+        <nav class="navbar">
+            <!-- ─── Welcome Header ─── -->
+            <div class="welcome-header">
+                <div class="welcome-text">
+                    <h2>Welcome, {{ teacher_name if teacher_name else 'John Doe' }}</h2>
+                    <p>Here is a quick overview of your teaching schedule.</p>
+                </div>
+                <div class="user-badge">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <span>{{ teacher_name if teacher_name else 'John Doe' }}</span>
+                </div>
+            </div>
         </nav>
-
-        <div class="sidebar-footer">
-            <a href="/logout">
-                <i class="fas fa-sign-out-alt"></i>
-                Logout
-            </a>
-        </div>
-    </aside>
-
-    <!-- ─── Navbar ─── -->
-    <nav class="navbar">
-        <span class="navbar-title">AI Timetable Management System</span>
-        <a href="/logout" class="btn-logout">Logout</a>
-    </nav>
 
     <!-- ─── Page Content ─── -->
     {% block body %}{% endblock %}
+    </div>
 
 </body>
 </html>

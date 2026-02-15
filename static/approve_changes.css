@@ -9,7 +9,7 @@ html, body {
 /* ─── Container ─── */
 .dashboard-container {
     position: fixed;
-    top: 60px;
+    top: 80px;
     left: 260px;
     right: 0;
     bottom: 0;
@@ -33,7 +33,7 @@ html, body {
 .navbar {
     position: fixed;
     top: 0; left: 260px; right: 0;
-    height: 60px;
+    height: 80px;
     z-index: 999;
 }
 

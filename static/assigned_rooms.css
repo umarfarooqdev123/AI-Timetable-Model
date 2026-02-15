@@ -1,6 +1,7 @@
 
 .main-content-wrapper {
     margin-left: 260px; /* Adjust this to match your sidebar width exactly */
+    margin-top: 100px;
     background-color: #f4f7fe;
     min-height: 100vh;
     padding-bottom: 2rem;
@@ -8,9 +9,11 @@
 
 /* Typography */
 .page-title {
+    padding-top: 10px;
     color: #1e293b;
     font-weight: 700;
     font-size: 1.5rem;
+    padding-left: 10px;
 }
 
 .semester-tag {

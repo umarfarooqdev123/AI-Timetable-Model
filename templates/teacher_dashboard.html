@@ -1,56 +1,58 @@
-{% extends "teacher_dashboard_layout.html" %} 
+{% extends "Teacher_dashboard_layout.html" %} 
 
 {% block body %}
 <link rel="stylesheet" href="/static/teacher_dashboard.css">
 
 <div class="dashboard-container">
 
-    <!-- ─── Welcome Header ─── -->
-    <div class="welcome-header">
-        <div class="welcome-text">
-            <h2>Welcome,{{ teacher_name if teacher_name else 'John Doe' }}</h2>
-            <p>Here is a quick overview of your teaching schedule.</p>
-        </div>
-        <div class="user-badge">
-            <div class="user-avatar">
-                <i class="fas fa-user-circle"></i>
-            </div>
-            <span>{{ teacher_name if teacher_name else 'John Doe' }}</span>
-        </div>
-    </div>
-
     <!-- ─── Stat Cards ─── -->
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-card-header">
-                <i class="fas fa-chalkboard"></i>
-                <span>Total Classes
+    <div class="cards">
+        <div class="card">
+            <div class="card-info">
+                <p>Total Classes</p>
+                <h2>{{ total_classes if total_classes else '0' }}</h2>
             </div>
-            <div class="stat-value">{{ total_classes if total_classes else '0' }}</div>
+            <div class="card-icon teacher">
+                <div class="icon-bg">
+                    <i class="fas fa-chalkboard"></i>
+                </div>
+            </div>
         </div>
 
-        <div class="stat-card">
-            <div class="stat-card-header">
-                <i class="fas fa-book"></i>
-                <span>Total Subjects</span>
+        <div class="card">
+            <div class="card-info">
+                <p>Total Subjects</p>
+                <h2>{{ total_subjects if total_subjects else '0' }}</h2>
             </div>
-            <div class="stat-value">{{ total_subjects if total_subjects else '0' }}</div>
+            <div class="card-icon teacher">
+                <div class="icon-bg">
+                    <i class="fas fa-book"></i>
+                </div>
+            </div>
         </div>
 
-        <div class="stat-card">
-            <div class="stat-card-header">
-                <i class="fas fa-door-open"></i>
-                <span>Assigned Rooms</span>
+        <div class="card">
+            <div class="card-info">
+                <p>Assigned Rooms</p>
+                <h2>{{ rooms_used if rooms_used else '0' }}</h2>
             </div>
-            <div class="stat-value">{{ rooms_used if rooms_used else '0' }}</div>
+            <div class="card-icon teacher">
+                <div class="icon-bg">
+                    <i class="fas fa-door-open"></i>
+                </div>
+            </div>
         </div>
 
-        <div class="stat-card">
-            <div class="stat-card-header">
-                <i class="fas fa-clock"></i>
-                <span>Pending Requests</span>
+        <div class="card">
+            <div class="card-info">
+                <p>Pending Requests</p>
+                <h2>{{ pending_requests if pending_requests else '3' }}</h2>
             </div>
-            <div class="stat-value">{{ pending_requests if pending_requests else '3' }}</div>
+            <div class="card-icon teacher">
+                <div class="icon-bg">
+                    <i class="fas fa-clock"></i>
+                </div>
+            </div>
         </div>
     </div>
 
