@@ -135,6 +135,7 @@ class Subject(db.Model):
         backref='subject',
         lazy=True
     )
+    department = db.relationship('Department', backref='subjects')
    
 
 @app.route("/")
@@ -231,7 +232,31 @@ def add_department():
 
 @app.route("/subjects")
 def subjects():
-    return render_template("subjects.html")
+    all_departments = Department.query.all()
+    all_subjects = Subject.query.all()
+    return render_template("subjects.html",departments=all_departments,subjects=all_subjects)
+
+@app.route("/add_subject", methods=["POST"])
+@admin_required
+def add_subject():
+    name = request.form.get("subject_name")
+    code = request.form.get("subject_code")
+    dept_id = request.form.get("department_id")
+
+    new_subject = Subject(
+        subject_name=name,
+        subject_code=code,
+        department_id=dept_id,
+        credits=0,
+        total_hours=0,
+        hours_per_week=0,
+        semester=1,
+        year=2024
+    )
+    
+    db.session.add(new_subject)
+    db.session.commit()
+    return redirect(url_for("subjects"))
 
 @app.route("/manage_teachers")
 def manage_teachers():
