@@ -29,7 +29,7 @@ body {
 }
 
 .page-title {
-    color: #2d3748;
+    color: #1e293b;   
     font-size: 20px;
     font-weight: 700;
 }
@@ -65,22 +65,34 @@ body {
 }
 
 .styled-table th {
-    background: #f8faff;
-    color: #4361ee;
+    background: #f8fafc;
+    color: #64748b;
     padding: 15px 25px;
     text-align: left;
     font-size: 13px;
-    text-transform: uppercase;
+    font-weight: 600;
+    text-transform: capitalize;  
+    letter-spacing: normal;       
 }
+
 
 .styled-table td {
     padding: 18px 25px;
     border-bottom: 1px solid #f1f5f9;
 }
+.styled-table td:nth-child(3) {
+    color: #475569;   
+    font-weight: 500;
+}
 
-.bold-text { font-weight: 600; color: #2d3436; }
-.code-text { font-weight: 700; color: #4361ee; }
-
+.bold-text {
+    font-weight: 700;
+    color: #0f172a;   
+}
+.code-text {
+    font-weight: 500;
+    color: #64748b;   
+}
 .teacher-info {
     display: flex;
     align-items: center;
@@ -93,17 +105,24 @@ body {
 .action-icons { display: flex; gap: 8px; }
 .edit-btn, .delete-btn {
     border: none;
-    padding: 7px;
-    border-radius: 6px;
+    padding: 4px;
+    border-radius: 0;
     cursor: pointer;
     transition: 0.2s;
 }
 
-.edit-btn { background: #e0f7fa; color: #00bcd4; }
-.delete-btn { background: #ffebee; color: #f44336; }
+.edit-btn i,
+.delete-btn i {
+    font-size: 18px;
+    background: transparent;
+    color: #94a3b8;   
+}
 
-.edit-btn:hover { background: #00bcd4; color: white; }
-.delete-btn:hover { background: #f44336; color: white; }
+.edit-btn:hover,
+.delete-btn:hover {
+    background: transparent;
+    color: #475569;
+}
 
 /* Modal Styling */
 .custom-modal {
@@ -127,7 +146,7 @@ body {
 
 .modal-header {
     padding: 15px 25px;
-    background: #f8faff;
+    background: #ffffff;
     border-bottom: 1px solid #eee;
     display: flex;
     justify-content: space-between;
@@ -139,10 +158,9 @@ body {
 
 .input-group { margin-bottom: 15px; }
 .input-group label {
-    display: block;
     font-weight: 600;
-    margin-bottom: 5px;
-    color: #4361ee;
+    margin-bottom: 6px;
+    color: #475569;  
 }
 
 .input-group input, .input-group select {
@@ -162,7 +180,7 @@ body {
 }
 
 .btn-save {
-    background: #4361ee;
+    background: #0f172a;;
     color: white;
     border: none;
     padding: 10px 25px;
@@ -172,9 +190,18 @@ body {
 }
 
 .btn-secondary {
-    background: #edf2f7;
+    background: #f1f5f9;
+    color: #475569;
     border: none;
     padding: 10px 20px;
     border-radius: 6px;
     cursor: pointer;
+}
+
+.subject-header-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px 30px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
 }
