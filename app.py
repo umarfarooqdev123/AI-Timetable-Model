@@ -129,7 +129,8 @@ class Subject(db.Model):
     is_active = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-        # Relationships
+    
+    # Relationships
     teachers = db.relationship(
         'TeacherSubject',
         backref='subject',
