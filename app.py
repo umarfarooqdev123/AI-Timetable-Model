@@ -129,12 +129,16 @@ class Subject(db.Model):
     is_active = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-        # Relationships
+    
+    # Relationships
     teachers = db.relationship(
         'TeacherSubject',
         backref='subject',
         lazy=True
     )
+
+    # Add relationship to Department
+    department = db.relationship('Department', backref='subjects', lazy=True)
    
 
 @app.route("/")
@@ -231,7 +235,10 @@ def add_department():
 
 @app.route("/subjects")
 def subjects():
-    return render_template("subjects.html")
+    # Fetch all subjects with their departments information
+    all_subjects = Subject.query.all()
+    deparments = Department.query.all()
+    return render_template("subjects.html", subejcts=all_subjects, deparments=departments)
 
 @app.route("/manage_teachers")
 def manage_teachers():
