@@ -285,6 +285,34 @@ def add_subject():
     db.session.add(new_subject)
     db.session.commit()
     return redirect(url_for("subjects"))
+#delete subject
+@app.route("/delete_subject/<string:id>", methods=["POST"])
+@admin_required
+def delete_subject(id):
+
+    subject = Subject.query.get_or_404(id)
+
+    try:
+        db.session.delete(subject)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        return str(e)
+
+    return '', 200
+#edit subjects
+@app.route("/edit_subject/<string:id>", methods=["POST"])
+@admin_required
+def edit_subject(id):
+    subject = Subject.query.get_or_404(id)
+
+    subject.subject_name = request.form.get("subject_name")
+    subject.subject_code = request.form.get("subject_code")
+    subject.department_id = request.form.get("department_id")
+
+    db.session.commit()
+    return redirect(url_for("subjects"))
+
 
 @app.route("/manage_teachers")
 def manage_teachers():

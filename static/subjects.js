@@ -17,3 +17,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+function deleteSubject(element, subjectId) {
+    if(confirm("Are you sure you want to delete this subject?")) {
+
+        fetch('/delete_subject/' + subjectId, {
+            method: 'POST',
+            credentials: 'include'
+        })
+        .then(res => {
+            if(res.ok){
+                element.closest('tr').remove();
+            } else {
+                alert("Delete failed!");
+            }
+        });
+    }
+}
+
