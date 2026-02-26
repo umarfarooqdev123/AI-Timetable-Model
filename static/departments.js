@@ -20,13 +20,13 @@ function closeDeptModal() {
 }
 
 // --- 2. Edit & Delete Logic ---
-function editDepartment(element) {
+function editDepartment(element,deptId) {
     const row = element.closest('tr');
     const deptName = row.querySelector('.name').innerText.trim();
     const deptCode = row.querySelector('.sub').innerText.trim();
     const teachers = row.querySelector('.tag.blue').innerText.replace(/[^0-9]/g, '');
     const subjects = row.querySelector('.tag.purple').innerText.replace(/[^0-9]/g, '');
-
+    const form = document.getElementById('addDepartmentForm');
     const codeInput = document.querySelector('input[name="department_code"]');
     
     document.getElementById('deptName').value = deptName;
@@ -36,14 +36,24 @@ function editDepartment(element) {
     
     document.querySelector('input[name="total_teachers"]').value = teachers;
     document.querySelector('input[name="total_subjects"]').value = subjects;
-
+    form.action = "/edit_department/" + deptId;
     document.getElementById('modalTitle').innerText = "Edit Department";
     showAddDeptModal();
 }
 
-function deleteItem(element) {
+function deleteItem(element, deptId) {
     if(confirm("Are you sure you want to delete this record?")) {
-        element.closest('tr').remove();
+        fetch('/delete_department/' + deptId, { 
+            method: 'POST',
+            credentials: 'include'
+        })
+        .then(res => {
+            if(res.ok) {
+                element.closest('tr').remove();
+            } else {
+                alert('Delete failed!');
+            }
+        });
     }
 }
 

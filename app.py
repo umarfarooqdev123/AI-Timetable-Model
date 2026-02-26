@@ -230,6 +230,33 @@ def add_department():
     db.session.commit()
     
     return redirect(url_for("departments"))
+#delete department
+@app.route("/delete_department/<string:id>", methods=["POST"])
+@admin_required
+def delete_department(id):
+    department = Department.query.get_or_404(id)
+    
+    try:
+        db.session.delete(department)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        print(f"Error: {e}")
+        
+    return redirect(url_for("departments"))
+#edit_department
+@app.route("/edit_department/<string:id>", methods=["POST"])
+@admin_required
+def edit_department_route(id):
+    dept = Department.query.get_or_404(id)
+    
+    dept.department_name = request.form.get("department_name")
+    dept.department_code = request.form.get("department_code")
+    dept.total_teachers = int(request.form.get("total_teachers", 0))
+    dept.total_subjects = int(request.form.get("total_subjects", 0))
+
+    db.session.commit()
+    return redirect(url_for("departments"))
 
 @app.route("/subjects")
 def subjects():
