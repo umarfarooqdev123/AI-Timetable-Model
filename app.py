@@ -1,5 +1,5 @@
 from auth import auth, admin_required
-from flask import Flask, render_template, redirect, request, session, url_for
+from flask import Flask, render_template, redirect, request, session, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.security import check_password_hash
@@ -236,8 +236,11 @@ def add_department():
     )
     db.session.add(new_department)
     db.session.commit()
+   
+    flash("Department profile has been successfully created and synchronized.", "success")
     
     return redirect(url_for("departments"))
+
 #delete department
 @app.route("/delete_department/<string:id>", methods=["POST"])
 @admin_required
@@ -292,6 +295,7 @@ def add_subject():
     
     db.session.add(new_subject)
     db.session.commit()
+    flash("Academic subject has been successfully integrated into the system.", "success")
     return redirect(url_for("subjects"))
 #delete subject
 @app.route("/delete_subject/<string:id>", methods=["POST"])
@@ -383,6 +387,8 @@ def add_teacher():
 
     db.session.add(new_teacher)
     db.session.commit()
+    flash("New faculty profile has been successfully registered and stored.", "success")
+        
 
     return redirect(url_for("manage_teachers"))
 

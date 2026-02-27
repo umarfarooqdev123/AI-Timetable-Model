@@ -4,75 +4,64 @@
     <meta charset="UTF-8" />
     <title>AI Timetable Management System</title>
 
-    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
 
-    <!-- Admin dashboard CSS -->
     <link rel="stylesheet" href="/static/Admin_dashboard.css" />
     
     {% block head %}{% endblock %}
   </head>
   <body>
     <div class="wrapper">
-      <!-- Sidebar -->
       <aside class="sidebar">
         <h2 class="logo">Admin Panel</h2>
 
         <ul class="menu">
 
-          <!-- Dashboard -->
           <li class="{% if request.endpoint == 'Admin_dashboard' or request.endpoint == 'None' %}active{% endif %}">
             <a href="{{ url_for('Admin_dashboard') }}">
               <i class="fa-solid fa-chart-line"></i> Dashboard
             </a>
           </li>
 
-          <!-- Manage Teachers -->
           <li class="{% if request.endpoint == 'manage_teachers' %}active{% endif %}">
             <a href="{{ url_for('manage_teachers') }}">
               <i class="fa-solid fa-user-gear"></i> Manage Teachers
             </a>
           </li>
 
-          <!-- Departments -->
           <li class="{% if request.endpoint == 'departments' %}active{% endif %}">
             <a href="{{ url_for('departments') }}">
               <i class="fa-solid fa-building"></i> Departments
             </a>
           </li>
 
-          <!-- Subjects -->
           <li class="{% if request.endpoint == 'subjects' %}active{% endif %}">
             <a href="{{ url_for('subjects') }}">
               <i class="fa-solid fa-book"></i> Subjects
             </a>
           </li>
 
-          <!-- View Timetables -->
           <li class="{% if request.endpoint == 'view_timetable' %}active{% endif %}">
             <a href="{{ url_for('view_timetable') }}">
               <i class="fa-solid fa-table"></i> View Timetables
             </a>
           </li>
 
-          <!-- Approve Changes -->
           <li class="{% if request.endpoint == 'approve_changes' %}active{% endif %}">
             <a href="{{ url_for('approve_changes') }}">
               <i class="fa-solid fa-circle-check"></i> Approve Changes
             </a>
           </li>
 
-          <!-- Settings -->
           <li class="{% if request.endpoint == 'settings' %}active{% endif %}">
             <a href="{{ url_for('settings') }}">
               <i class="fa-solid fa-gear"></i> Settings
             </a>
           </li>
 
-          <!-- Logout -->
           <li>
             <a href="{{ url_for('auth.logout') }}">
               <i class="fa-solid fa-right-from-bracket"></i> Logout
@@ -82,16 +71,34 @@
         </ul>
       </aside>
 
-      <!-- Main Content -->
       <div class="main">
-        <!-- Navbar -->
         <nav class="navbar">
           <h1>AI Timetable Management System</h1>
           <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
         </nav>
 
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div id="flash-message" style="padding: 15px; margin: 20px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 8px; font-family: sans-serif; display: flex; justify-content: space-between; align-items: center;">
+                <span><i class="fa-solid fa-circle-check"></i> {{ message }}</span>
+                <button onclick="this.parentElement.style.display='none'" style="background:none; border:none; font-size: 20px; cursor:pointer; color: #155724;">&times;</button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
         {% block body %}{% endblock %}
       </div>
     </div>
+
+    <script>
+      setTimeout(function() {
+        var msg = document.getElementById('flash-message');
+        if (msg) {
+          msg.style.display = 'none';
+        }
+      }, 3000);
+    </script>
+
   </body>
 </html>
