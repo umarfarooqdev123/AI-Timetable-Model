@@ -67,6 +67,14 @@ class Teacher(db.Model):
         backref='teacher',
         lazy=True
     )
+    department = db.relationship(
+        'Department',
+        foreign_keys='Teacher.department_id',
+        backref='teachers',
+        lazy=True
+    )
+
+
 
 # -------------- Department Table --------------
 class Department(db.Model):
@@ -315,9 +323,12 @@ def edit_subject(id):
 
 
 @app.route("/manage_teachers")
+@admin_required
 def manage_teachers():
-    return render_template("manage_teachers.html")
-
+    all_departments = Department.query.all()
+    all_teachers = Teacher.query.all()
+    return render_template("manage_teachers.html", teachers=all_teachers, departments=all_departments)
+    
 @app.route("/approve_changes")
 def approve_changes():
     return render_template("approve_changes.html")
@@ -336,6 +347,76 @@ def Teacher_dashboard():
     if "user_email" not in session:
         return redirect(url_for("login"))
     return render_template("Teacher_dashboard.html")
+
+# Add Teacher ROUTE
+
+from werkzeug.security import generate_password_hash
+
+@app.route("/add_teacher", methods=["POST"])
+@admin_required
+def add_teacher():
+    full_name = request.form.get("full_name")
+    email = request.form.get("email")
+    department_id = request.form.get("department_id")
+    status = request.form.get("status")
+
+    # Safety check
+    if not full_name or not email or not department_id:
+        return redirect(url_for("manage_teachers"))
+
+    # Duplicate email check
+    existing_teacher = Teacher.query.filter_by(email=email).first()
+    if existing_teacher:
+        return redirect(url_for("manage_teachers"))
+
+    new_teacher = Teacher(
+        teacher_id=generate_uuid(),
+        employee_id=str(uuid.uuid4())[:8],
+        username=email.split("@")[0],
+        email=email,
+        password_hash=generate_password_hash("teacher123"), # default password
+        full_name=full_name,
+        designation="Lecturer",
+        department_id=department_id,
+        is_active=True if status == "active" else False
+    )
+
+    db.session.add(new_teacher)
+    db.session.commit()
+
+    return redirect(url_for("manage_teachers"))
+
+# update Teacher ROUTE
+
+@app.route("/edit_teacher/<string:id>", methods=["POST"])
+@admin_required
+def edit_teacher(id):
+    teacher = Teacher.query.get_or_404(id)
+    
+    teacher.full_name = request.form.get("full_name")
+    teacher.email = request.form.get("email")
+    teacher.department_id = request.form.get("department_id")
+    status = request.form.get("status")
+    teacher.is_active = True if status == "active" else False
+
+    db.session.commit()
+    return redirect(url_for("manage_teachers"))
+
+# Delete Teacher 
+@app.route("/delete_teacher/<string:id>", methods=["POST"])
+@admin_required
+def delete_teacher(id):
+    teacher = Teacher.query.get_or_404(id)
+    
+    try:
+        db.session.delete(teacher)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        print(f"Error: {e}")
+    
+    return redirect(url_for("manage_teachers"))
+
 
 @app.route("/create_timetable")
 def create_timetable():
